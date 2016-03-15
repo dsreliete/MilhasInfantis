@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
+        app:tabTextColor="@android:color/white"
+        app:tabSelectedTextColor="@color/lightPrimaryColor"
+        app:tabIndicatorColor="@color/lightPrimaryColor"/>
+
+    <android.support.v4.view.ViewPager
+        android:layout_below="@id/tabs"
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_below="@id/viewpager"-->
+            <!--android:id="@+id/goal_cat_cardView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="16dp"-->
+            <!--android:layout_alignParentTop="true">-->
+
+            <!--<Spinner-->
+                <!--android:id="@+id/spinner_goals_category"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="5dp"-->
+                <!--android:spinnerMode="dropdown"-->
+                <!--android:dropDownSelector="@drawable/desafio_seta_baixo"-->
+                <!--android:touchscreenBlocksFocus="false"-->
+                <!--android:prompt="@string/option"/>-->
+        <!--</android.support.v7.widget.CardView>-->
+
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/association_goals_recyclerView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:layout_above="@+id/line"-->
+            <!--android:layout_below="@+id/goal_cat_cardView"/>-->
+
+
+       <!--<View-->
+            <!--android:id="@+id/line"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/grey_light"-->
+            <!--android:layout_above="@+id/ok_container" />-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/ok_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="16dp"-->
+        <!--android:layout_alignParentBottom="true">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/ok_association"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="ok"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:background="@drawable/bg_orange"/>-->
+
+    <!--</RelativeLayout>-->
+</RelativeLayout>
+
+

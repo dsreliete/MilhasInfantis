@@ -1,0 +1,109 @@
+<resources>
+    <!--TITLES-->
+    <string name="app_name">Milhas Infantis</string>
+    <string name="parents_edit">Editar Responsável</string>
+    <string name="parents_add">Cadastrar Responsável</string>
+    <string name="child_edit">Editar Filhos</string>
+    <string name="child_add">Cadastrar Filhos</string>
+    <string name="awards">Prêmios</string>
+    <string name="awards_edit">Editar Prêmios</string>
+    <string name="awards_add">Cadastrar Prêmios</string>
+    <string name="categories">Categorias</string>
+    <string name="categories_edit">Editar Categorias</string>
+    <string name="categories_add">Cadastrar Categorias</string>
+    <string name="association">"Atribuir atividades"</string>
+    <string name="no_association">Retirar Associação</string>
+    <string name="goals">Atividades</string>
+    <string name="goals_edit">Editar Atividades</string>
+    <string name="goals_add">Cadastrar Atividades</string>
+    <string name="history_general">Histórico geral</string>
+    <string name="penalties">Penalidades</string>
+    <string name="penalties_add">Cadastrar Penalidades</string>
+    <string name="penalties_edit">Editar Penalidades</string>
+    <string name="rescue_points">Resgate de Prêmios</string>
+
+
+    <!--MainActivity-->
+    <string name="parents_textview1">Família</string>
+    <string name="parents_textview2">Adicionar nome</string>
+    <string name="parents_textview3">Adicionar sobrenome</string>
+
+    <!--About App-->
+    <string name="simbol_rights">®</string>
+    <string name="name_rights"> - versão</string>
+
+    <!--ROW TABLES-->
+    <string name="penalties_desc1">Falar Palavrão</string>
+    <string name="penalties_desc2">Receber Bilhete da escola</string>
+    <string name="penalties_desc3">Responder aos pais</string>
+
+    <string name="category_desc1">Higiene</string>
+    <string name="category_desc2">Comportamento</string>
+    <string name="category_desc3">Educação</string>
+    <string name="category_desc4">Tarefas de casa</string>
+    <string name="category_desc5">Adicionar nova categoria</string>
+    <string name="category_desc6">Selecione uma categoria</string>
+
+    <string name="goals_desc1">Escovar os dentes</string>
+    <string name="goals_desc2">Tomar banhos rápidos</string>
+    <string name="goals_desc3">Lavar as mãos antes das refeições</string>
+    <string name="goals_desc4">Bom comportamento ao sair</string>
+    <string name="goals_desc5">Dormir no horário</string>
+    <string name="goals_desc6">Acordar no horário</string>
+    <string name="goals_desc7">Pró-atividade para fazer lição de casa</string>
+    <string name="goals_desc8">Ajudar o irmão com a lição de casa</string>
+    <string name="goals_desc9">Melhorar as notas das provas</string>
+    <string name="goals_desc10">Guardar os brinquedos</string>
+    <string name="goals_desc11">Arrumar a cama</string>
+    <string name="goals_desc12">Organizar as roupas</string>
+
+    <string name="awards_desc1">Passear no parque</string>
+    <string name="awards_desc3">Visitar a tia preferida</string>
+    <string name="awards_desc2">Comprar guloseimas</string>
+    <string name="awards_desc4">1 hora extra jogando</string>
+    <string name="awards_desc5">Ir ao passeio da escola</string>
+
+
+    <!-- ADAPTERS-->
+    <string name="points">pontos</string>
+    <string name="point">ponto</string>
+    <string name="rescue_point_textview">Pontuação para resgate:</string>
+
+
+    <!--HINTS-->
+    <string name="name">nome</string>
+    <string name="family_name">nome da família</string>
+    <string name="birth_date">data de nascimento</string>
+    <string name="description">descrição</string>
+    <string name="points_value">valor dos pontos</string>
+    <string name="pick_date_select">Selecione uma data para consulta</string>
+    <string name="pick_date_bonification">Selecione uma data para bonificar</string>
+    <string name="pick_date_penalization">Selecione uma data para penalizar</string>
+    <string name="date">data</string>
+
+
+    <!--alert messages-->
+    <string name="alert_option_selected">Você selecionou</string>
+    <string name="alert_option_choose">Escolha uma das opções para:</string>
+    <string name="alert_button_edit">Editar</string>
+    <string name="alert_button_cancel">Cancelar</string>
+    <string name="alert_button_exclude">Excluir</string>
+    <string name="alert_association">Impossível deletar, há atividades associadas</string>
+    <string name="alert_goal_associated">Não foi possível excluir essa atividade, pois ela está associada ao filho</string>
+
+
+    <!--snacks message-->
+    <string name="snack_add">Cadastro realizado com sucesso</string>
+    <string name="snack_no_add">Não foi possível realizar cadastro. Tente novamente</string>
+    <string name="snack_edition">Edição realizada com sucesso</string>
+    <string name="snack_no_edition">Não foi possível realizar edição. Tente novamente</string>
+    <string name="snack_same">já cadastrado(a). Tente outro!</string>
+    <string name="snack_del">"Não foi possível deletar. Tente novamente"</string>
+    <string name="snack_no_bonification">"Não foi possível bonificar. Tente novamente"</string>
+    <string name="snack_no_penalization">"Não foi possível penalizar. Tente novamente"</string>
+
+    <!--include Fragment-->
+    <string name="association_button">Associar atividade</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>

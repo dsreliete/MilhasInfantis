@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/description_goalsTextView"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="5dp"
+            android:textStyle="bold"/>
+
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:layout_below="@+id/description_goalsTextView">
+
+                <ImageView
+                    android:id="@+id/happy"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/happy"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginLeft="40dp" />
+
+
+                <ImageView
+                    android:id="@+id/soso"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/soso"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginLeft="32dp" />
+
+
+                <ImageView
+                    android:id="@+id/angry"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/angry"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_gravity="right"/>
+
+            </LinearLayout>
+
+
+    </RelativeLayout>
+
+

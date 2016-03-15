@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="darkPrimaryColor">#00796B</color>
+    <color name="primaryColor">#009688</color>
+    <color name="lightPrimaryColor">#FFC107</color>
+    <color name="accentColor">#0097A7</color>
+    <color name="dividerColor">#B6B6B6</color>
+    <color name="primaryText">#212121</color>
+    <color name="secondaryText">#727272</color>
+
+    <color name="gray_light">#efefef</color>
+    <color name="luiza_blue">#0083ca</color>
+    <color name="grey_medium">#BDBDBD</color>
+    <color name="grey_light">#ECEFF1</color>
+    <color name="grey_hint_menu">#757575</color>
+    <color name="separator_menu">#9E9E9E</color>
+    <color name="grey_dark">#424242</color>
+    <color name="yellow">#FFCA28</color>
+    <color name="blue">#0083ca</color>
+    <color name="dark_blue">#026596</color>
+    <color name="red">#E53935</color>
+    <color name="grey_subcategory">#F2F2F2</color>
+    <color name="grey_order_text">#8C8C8C</color>
+    <color name="product_title_color">#404040</color>
+    <color name="add_to_cart_green">#58c22e</color>
+    <color name="buy_green">#4da205</color>
+    <color name="suggestion_text_purple">#9f3d95</color>
+    <color name="color_cancel">#8c8c8c</color>
+    <color name="color_send">#8c8c8c</color>
+    <color name="indicator_color_video">#9f3d95</color>
+    <color name="indicator_color_selected">#0083ca</color>
+    <color name="indicator_color_unselected">#8C8C8C</color>
+    <color name="bundle_background">#f2f2f2</color>
+    <color name="line_technical_background">#e5e5e5</color>
+    <color name="score_yellow">#ebc800</color>
+    <color name="basket_background">#f2f2f2</color>
+    <color name="zipcode_price_green">#4da205</color>
+    <color name="product_unavailable">#ec0000</color>
+    <color name="green_warranty">#5d7f35</color>
+    <color name="white">#FFFFFF</color>
+
+</resources>

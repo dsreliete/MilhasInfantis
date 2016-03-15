@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Algumas atividades já foram cadastradas para sua maior comodidade. Elas foram agrupadas por categoria. Escolha uma das opções abaixo para listar"
+            android:layout_gravity="center"
+            android:textColor="@color/grey_dark"
+            android:textSize="16sp"
+            android:padding="16dp"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/goal_cat_cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <Spinner
+                android:id="@+id/spinner_goals_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:spinnerMode="dropdown"
+                android:dropDownSelector="@drawable/desafio_seta_baixo"
+                android:touchscreenBlocksFocus="false"
+                android:prompt="@string/category_desc6"/>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <TextView
+
+            android:padding="16dp"
+            android:id="@+id/no_goalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Não há atividades cadastradas para essa categoria"/>
+
+    </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/goals_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
