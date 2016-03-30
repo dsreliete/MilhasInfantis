@@ -24,32 +24,32 @@ public class RealizationDAO {
         this.context = context;
     }
 
-    public boolean inserir(int filhoId, int acaoId, int acaoCatId, String tipoAçao, int ponto, String tipoPonto, String data, String hora){
+    public boolean insertRealization(int childId, int actionId, int actionCatId, String actionType, int point, String pointType, String date, String hour){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID, filhoId); // id do filho
-        values.put(DBContract.TabelaRealizacao.REALIZACAO_ACAO_ID, acaoId); // id de: atividade, categoria, penalizacao, associacao
-        values.put(DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID, acaoCatId);//atributo nulo, somente para atividade
-        values.put(DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO, tipoAçao); // cadastrar. editar, excluir, penalizar, associar. Qq ação do app
-        values.put(DBContract.TabelaRealizacao.REALIZACAO_PONTO, ponto);// atributo nulo. Só para bonificar, penalizar ou premiar, correponde ao vcalor do ponto
-        values.put(DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO, tipoPonto); // atributo nulo. Só para bonificar, penalizar ou premiar. O Tipo do ponto pode ser: verde, verm, amarelo ou azul
-        values.put(DBContract.TabelaRealizacao.REALIZACAO_DATA, data);
-        values.put(DBContract.TabelaRealizacao.REALIZACAO_HORA, hora);
-        db.insert(DBContract.TabelaRealizacao.NOME_TABLE, null, values);
+        values.put(DBContract.RealizationTable.REALIZATION_CHILD_ID, childId); // id do filho
+        values.put(DBContract.RealizationTable.REALIZATION_ACTION_ID, actionId); // id de: atividade, categoria, penalizacao, associacao
+        values.put(DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID, actionCatId);//atributo nulo, somente para atividade
+        values.put(DBContract.RealizationTable.REALIZATION_ACTION_TYPE, actionType); // cadastrar. editar, excluir, penalizar, associar. Qq ação do app
+        values.put(DBContract.RealizationTable.REALIZATION_POINT, point);// atributo nulo. Só para bonificar, penalizar ou premiar, correponde ao vcalor do ponto
+        values.put(DBContract.RealizationTable.REALIZATION_POINT_TYPE, pointType); // atributo nulo. Só para bonificar, penalizar ou premiar. O Tipo do ponto pode ser: verde, verm, amarelo ou azul
+        values.put(DBContract.RealizationTable.REALIZATION_DATE, date);
+        values.put(DBContract.RealizationTable.REALIZATION_HOUR, hour);
+        db.insert(DBContract.RealizationTable.NAME_TABLE, null, values);
         db.close();
         return true;
     }
 
-    public List<Realizates> consultarRealizacaoPerChild(int idChild){
+    public List<Realizates> fetchRealizationPerChild(int idChild){
         List<Realizates> list = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT * FROM " + DBContract.TabelaRealizacao.NOME_TABLE + ", " +
-                DBContract.TabelaFilho.NOME_TABLE + " WHERE " + DBContract.TabelaFilho.FILHO_ID +
-                " = " + DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " AND " +
-                DBContract.TabelaFilho.FILHO_ID + " = " + idChild;
+        String query = "SELECT * FROM " + DBContract.RealizationTable.NAME_TABLE + ", " +
+                DBContract.ChildTable.NAME_TABLE + " WHERE " + DBContract.ChildTable.CHILD_ID +
+                " = " + DBContract.RealizationTable.REALIZATION_CHILD_ID + " AND " +
+                DBContract.ChildTable.CHILD_ID + " = " + idChild;
 
         Cursor c = db.rawQuery(query, null);
 
@@ -61,17 +61,17 @@ public class RealizationDAO {
 
         Realizates realizates;
         do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_ID));
-            String filhoNome = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaFilho.FILHO_NOME));
-            int ponto = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_PONTO));
-            String tipoPonto = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO));
-            int acaoId = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_ACAO_ID));
-            int catAcaoId = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID));
-            String tipoAcao = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO));
-            String d = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_DATA));
-            String data = Utils.formatDate(d);
-            String hora =  c.getString(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_HORA));
-            realizates = new Realizates(idd, filhoNome, ponto, tipoPonto, acaoId, catAcaoId, tipoAcao, data, hora);
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_ID));
+            String childName = c.getString(c.getColumnIndexOrThrow(DBContract.ChildTable.CHILD_NAME));
+            int point = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_POINT));
+            String pointType = c.getString(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_POINT_TYPE));
+            int actionId = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_ACTION_ID));
+            int catActionId = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID));
+            String actionType = c.getString(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_ACTION_TYPE));
+            String date = c.getString(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_DATE));
+            String birthDate = Utils.formatDate(date);
+            String hour =  c.getString(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_HOUR));
+            realizates = new Realizates(idd, childName, point, pointType, actionId, catActionId, actionType, birthDate, hour);
             list.add(realizates);
         }while (c.moveToNext());
         c.close();
@@ -79,14 +79,14 @@ public class RealizationDAO {
         return list;
     }
 
-    public List<Realizates> consultarRealizacao(){
+    public List<Realizates> fetchRealization(){
         List<Realizates> list = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT * FROM " + DBContract.TabelaRealizacao.NOME_TABLE + ", " +
-                DBContract.TabelaFilho.NOME_TABLE + " WHERE " + DBContract.TabelaFilho.FILHO_ID +
-                " = " + DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID;
+        String query = "SELECT * FROM " + DBContract.RealizationTable.NAME_TABLE + ", " +
+                DBContract.ChildTable.NAME_TABLE + " WHERE " + DBContract.ChildTable.CHILD_ID +
+                " = " + DBContract.RealizationTable.REALIZATION_CHILD_ID;
 
         Cursor c = db.rawQuery(query, null);
 
@@ -98,18 +98,18 @@ public class RealizationDAO {
 
         Realizates realizates;
         do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_ID));
-            int idFilho = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID));
-            String filhoNome = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaFilho.FILHO_NOME));
-            int ponto = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_PONTO));
-            String tipoPonto = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO));
-            int acaoId = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_ACAO_ID));
-            int catAcaoId = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID));
-            String tipoAcao = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO));
-            String d = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_DATA));
-            String data = Utils.formatDate(d);
-            String hora =  c.getString(c.getColumnIndexOrThrow(DBContract.TabelaRealizacao.REALIZACAO_HORA));
-            realizates = new Realizates(idd, idFilho, filhoNome, ponto, tipoPonto, acaoId, catAcaoId, tipoAcao, data, hora);
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_ID));
+            int idFilho = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_CHILD_ID));
+            String childName = c.getString(c.getColumnIndexOrThrow(DBContract.ChildTable.CHILD_NAME));
+            int point = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_POINT));
+            String pointType = c.getString(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_POINT_TYPE));
+            int actionId = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_ACTION_ID));
+            int catActionId = c.getInt(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID));
+            String actionType = c.getString(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_ACTION_TYPE));
+            String date = c.getString(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_DATE));
+            String birthDate = Utils.formatDate(date);
+            String hour =  c.getString(c.getColumnIndexOrThrow(DBContract.RealizationTable.REALIZATION_HOUR));
+            realizates = new Realizates(idd, idFilho, childName, point, pointType, actionId, catActionId, actionType, birthDate, hour);
             list.add(realizates);
         }while (c.moveToNext());
         c.close();
@@ -117,12 +117,12 @@ public class RealizationDAO {
         return list;
     }
 
-    public int consultarTotalPointsPerChild(int idChild){
+    public int fetchTotalPointsPerChild(int idChild){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT SUM (" + DBContract.TabelaRealizacao.REALIZACAO_PONTO + ") FROM " + DBContract.TabelaRealizacao.NOME_TABLE
-                + " WHERE " + DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild;
+        String query = "SELECT SUM (" + DBContract.RealizationTable.REALIZATION_POINT + ") FROM " + DBContract.RealizationTable.NAME_TABLE
+                + " WHERE " + DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild;
 
         Cursor c = db.rawQuery(query, null);
 
@@ -135,13 +135,13 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarTotalPointsPerChildToday(int idChild, String date){
+    public int fetchTotalPointsPerChildToday(int idChild, String date){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT SUM (" + DBContract.TabelaRealizacao.REALIZACAO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " + DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID
-                + " = " + idChild + " AND strftime('%Y-%m-%d', " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT SUM (" + DBContract.RealizationTable.REALIZATION_POINT + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " + DBContract.RealizationTable.REALIZATION_CHILD_ID
+                + " = " + idChild + " AND strftime('%Y-%m-%d', " + DBContract.RealizationTable.REALIZATION_DATE +
                 ")=strftime('%Y-%m-%d','" + date + "')" ;
 
         Cursor c = db.rawQuery(query, null);
@@ -155,15 +155,15 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarTotalPointsPerChildWeek(int idChild, String iniDate, String endDate){
+    public int fetchTotalPointsPerChildWeek(int idChild, String iniDate, String endDate){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT SUM (" + DBContract.TabelaRealizacao.REALIZACAO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE strftime('%Y-%m-%d', "
-                + DBContract.TabelaRealizacao.REALIZACAO_DATA + ")>=strftime('%Y-%m-%d','" +
-                iniDate + "') AND strftime('%Y-%m-%d', " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
-                ")<=strftime('%Y-%m-%d','" + endDate + "') AND " + DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID
+        String query = "SELECT SUM (" + DBContract.RealizationTable.REALIZATION_POINT + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE strftime('%Y-%m-%d', "
+                + DBContract.RealizationTable.REALIZATION_DATE + ")>=strftime('%Y-%m-%d','" +
+                iniDate + "') AND strftime('%Y-%m-%d', " + DBContract.RealizationTable.REALIZATION_DATE +
+                ")<=strftime('%Y-%m-%d','" + endDate + "') AND " + DBContract.RealizationTable.REALIZATION_CHILD_ID
                 + " = " + idChild;
 
         Cursor c = db.rawQuery(query, null);
@@ -177,15 +177,15 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarTotalRedActions(int idChild, String iniDate, String endDate){
+    public int fetchTotalRedActions(int idChild, String iniDate, String endDate){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE "
-                + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'vermelho' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild
-                  + " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_POINT_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE "
+                + DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'vermelho' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild
+                  + " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'"
                 ;
 
@@ -200,15 +200,15 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarTotalYellowActions(int idChild, String iniDate, String endDate){
+    public int fetchTotalYellowActions(int idChild, String iniDate, String endDate){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE "
-                + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'amarelo' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_POINT_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE "
+                + DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'amarelo' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'"
                 ;
 
@@ -223,15 +223,15 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarTotalGreenActions(int idChild, String iniDate, String endDate){
+    public int fetchTotalGreenActions(int idChild, String iniDate, String endDate){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE "
-                + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'verde' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_POINT_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE "
+                + DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'verde' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -246,16 +246,16 @@ public class RealizationDAO {
     }
 
 
-    public int consultarBonificationRedActions(int idChild, String iniDate, String endDate) {
+    public int fetchBonificationRedActions(int idChild, String iniDate, String endDate) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE "
-                + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'vermelho' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_POINT_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE "
+                + DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'vermelho' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar' AND " +
+                DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -270,16 +270,16 @@ public class RealizationDAO {
 
     }
 
-    public int consultarBonificationYellowActions(int idChild, String iniDate, String endDate) {
+    public int fetchBonificationYellowActions(int idChild, String iniDate, String endDate) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE "
-                + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'amarelo' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar'"
-                + " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_POINT_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE "
+                + DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'amarelo' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar'"
+                + " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'"
                 ;
 
@@ -294,16 +294,16 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarBonificationGreenActions(int idChild, String iniDate, String endDate) {
+    public int fetchBonificationGreenActions(int idChild, String iniDate, String endDate) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE "
-                + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'verde' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar'"
-                 + " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_POINT_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE "
+                + DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'verde' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar'"
+                 + " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -317,16 +317,16 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarExtraPointsRedActions(int idChild, String iniDate, String endDate) {
+    public int fetchExtraPointsRedActions(int idChild, String iniDate, String endDate) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE "
-                + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'vermelho' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'ponto_extra'"
-                + " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_POINT_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE "
+                + DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'vermelho' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'ponto_extra'"
+                + " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -344,12 +344,12 @@ public class RealizationDAO {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE "
-                + DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'verde' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'ponto_extra'" +
-                " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_POINT_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE "
+                + DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'verde' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'ponto_extra'" +
+                " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -363,15 +363,15 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarPenActions(int idChild, String iniDate, String endDate) {
+    public int fetchPenActions(int idChild, String iniDate, String endDate) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'penalizar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild +
-                " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_ACTION_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'penalizar' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild +
+                " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -385,15 +385,15 @@ public class RealizationDAO {
         return c.getInt(0);
     }
 
-    public int consultarBonActions(int idChild, String iniDate, String endDate) {
+    public int fetchBonActions(int idChild, String iniDate, String endDate) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild +
-                " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_ACTION_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild +
+                " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -411,13 +411,13 @@ public class RealizationDAO {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'vermelho' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID + " = " + catId +
-                " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_ACTION_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar' AND " +
+                DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'vermelho' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID + " = " + catId +
+                " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -435,13 +435,13 @@ public class RealizationDAO {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'amarelo' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID + " = " + catId + " AND "
-                + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_ACTION_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar' AND " +
+                DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'amarelo' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID + " = " + catId + " AND "
+                + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -459,13 +459,13 @@ public class RealizationDAO {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'verde' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID + " = " + catId
-                + " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_ACTION_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar' AND " +
+                DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'verde' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID + " = " + catId
+                + " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -483,14 +483,14 @@ public class RealizationDAO {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'vermelho' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID + " = " + catId + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_ID + " = " + idGoal
-                + " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_ACTION_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar' AND " +
+                DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'vermelho' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID + " = " + catId + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_ID + " = " + idGoal
+                + " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);
@@ -508,14 +508,14 @@ public class RealizationDAO {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'amarelo' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID + " = " + catId + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_ID + " = " + idGoal +
-                " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_ACTION_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar' AND " +
+                DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'amarelo' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID + " = " + catId + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_ID + " = " + idGoal +
+                " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
         Cursor c = db.rawQuery(query, null);
 
@@ -532,14 +532,14 @@ public class RealizationDAO {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT COUNT (" + DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + ") FROM " +
-                DBContract.TabelaRealizacao.NOME_TABLE + " WHERE " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_ACAO + " = 'bonificar' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_TIPO_PONTO + " = 'verde' AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_FILHO_ID + " = " + idChild + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_CAT_ID + " = " + catId + " AND " +
-                DBContract.TabelaRealizacao.REALIZACAO_ACAO_ID + " = " + idGoal
-                + " AND " + DBContract.TabelaRealizacao.REALIZACAO_DATA +
+        String query = "SELECT COUNT (" + DBContract.RealizationTable.REALIZATION_ACTION_TYPE + ") FROM " +
+                DBContract.RealizationTable.NAME_TABLE + " WHERE " +
+                DBContract.RealizationTable.REALIZATION_ACTION_TYPE + " = 'bonificar' AND " +
+                DBContract.RealizationTable.REALIZATION_POINT_TYPE + " = 'verde' AND " +
+                DBContract.RealizationTable.REALIZATION_CHILD_ID + " = " + idChild + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_CAT_ID + " = " + catId + " AND " +
+                DBContract.RealizationTable.REALIZATION_ACTION_ID + " = " + idGoal
+                + " AND " + DBContract.RealizationTable.REALIZATION_DATE +
                 " BETWEEN '" + iniDate + "' AND '" + endDate + "'";
 
         Cursor c = db.rawQuery(query, null);

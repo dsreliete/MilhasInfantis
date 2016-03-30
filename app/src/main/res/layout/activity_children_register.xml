@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/app_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/child_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="60dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:textColor="@color/grey_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="nome"
+            android:id="@+id/nameChildEditText"
+            android:inputType="textCapSentences"
+            android:ems="15"
+            android:maxLines="1"
+            android:maxLength="40" />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_layout_dtNasc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:textColor="@color/grey_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="data de nascimento"
+            android:id="@+id/dateNascChildEditText"
+            android:ems="15"
+            android:maxLines="1" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sexo:"
+                android:textSize="16sp"
+                android:padding="10dp"/>
+
+            <RadioButton
+                android:id="@+id/women"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="feminino"/>
+
+            <RadioButton
+                android:id="@+id/men"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:text="masculino"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</LinearLayout>

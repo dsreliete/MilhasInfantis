@@ -24,22 +24,22 @@ public class AwardsDAO {
         this.context = context;
     }
 
-    public boolean inserir(Awards awards){
+    public boolean insertAwards(Awards awards){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaPremio.PREMIO_DESC, awards.getDescription());
-        values.put(DBContract.TabelaPremio.PREMIO_PONTO, awards.getPoints());
-        db.insert(DBContract.TabelaPremio.NOME_TABLE, null, values);
+        values.put(DBContract.AwardsTable.AWARD_DESC, awards.getDescription());
+        values.put(DBContract.AwardsTable.AWARD_POINT, awards.getPoints());
+        db.insert(DBContract.AwardsTable.NAME_TABLE, null, values);
         db.close();
         return true;
     }
 
-    public List<Awards> consultarAwardsList(){
+    public List<Awards> fetchAwardsList(){
         List<Awards> lista = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaPremio.NOME_TABLE, DBContract.TabelaPremio.PREMIO_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.AwardsTable.NAME_TABLE, DBContract.AwardsTable.AWARD_COLS, null, null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
@@ -48,10 +48,10 @@ public class AwardsDAO {
             return lista;
 
         do{
-            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaPremio.PREMIO_ID));
+            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.AwardsTable.AWARD_ID));
             String desc = c.getString(1);
-            String ponto = c.getString(2);
-            Awards awds = new Awards(id, desc, Integer.parseInt(ponto));
+            String point = c.getString(2);
+            Awards awds = new Awards(id, desc, Integer.parseInt(point));
             lista.add(awds);
         }while (c.moveToNext());
         c.close();
@@ -59,24 +59,24 @@ public class AwardsDAO {
         return lista;
     }
 
-    public boolean atualizar(int id, String desc, Integer points){
+    public boolean updateAward(int id, String desc, Integer points){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaPremio.PREMIO_ID, id);
-        values.put(DBContract.TabelaPremio.PREMIO_DESC, desc);
-        values.put(DBContract.TabelaPremio.PREMIO_PONTO, points);
-        return db.update(DBContract.TabelaPremio.NOME_TABLE, values, DBContract.TabelaPremio.PREMIO_ID + "=" + id, null) > 0;
+        values.put(DBContract.AwardsTable.AWARD_ID, id);
+        values.put(DBContract.AwardsTable.AWARD_DESC, desc);
+        values.put(DBContract.AwardsTable.AWARD_POINT, points);
+        return db.update(DBContract.AwardsTable.NAME_TABLE, values, DBContract.AwardsTable.AWARD_ID + "=" + id, null) > 0;
 
     }
 
 
-    public Awards consultarPorId(Integer id) throws SQLException {
+    public Awards fetchAwardsPerId(Integer id) throws SQLException {
 
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        Cursor c = db.query(DBContract.TabelaPremio.NOME_TABLE, DBContract.TabelaPremio.PREMIO_COLS, DBContract.TabelaPremio.PREMIO_ID + "=" + id, null, null, null, null, null);
+        Cursor c = db.query(DBContract.AwardsTable.NAME_TABLE, DBContract.AwardsTable.AWARD_COLS, DBContract.AwardsTable.AWARD_ID + "=" + id, null, null, null, null, null);
 
         if (c != null) {
             c.moveToFirst();
@@ -86,26 +86,26 @@ public class AwardsDAO {
 
         Awards awds;
         do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaPremio.PREMIO_ID));
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.AwardsTable.AWARD_ID));
             String desc = c.getString(1);
-            int ponto = c.getInt(2);
-            awds = new Awards(idd, desc, ponto);
+            int point = c.getInt(2);
+            awds = new Awards(idd, desc, point);
         }while (c.moveToNext());
         c.close();
         db.close();
         return awds;
     }
 
-    public boolean deletarId(long rowId) {
+    public boolean deleteAwardId(long rowId) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(DBContract.TabelaPremio.NOME_TABLE, DBContract.TabelaPremio.PREMIO_ID + "=" + rowId, null) > 0;
+        return db.delete(DBContract.AwardsTable.NAME_TABLE, DBContract.AwardsTable.AWARD_ID + "=" + rowId, null) > 0;
     }
 
-    public boolean obterCadastroPremio(){
+    public boolean obtainAwards(){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaPremio.NOME_TABLE, DBContract.TabelaPremio.PREMIO_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.AwardsTable.NAME_TABLE, DBContract.AwardsTable.AWARD_COLS, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0){
             return true;

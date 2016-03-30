@@ -3,6 +3,7 @@
     android:id="@+id/description_categoriesTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/statelist_item_background"
     android:padding="16dp"
     android:textStyle="bold"/>
 

@@ -6,28 +6,28 @@ package br.com.rodrigues.eliete.milhasinfantis.Model;
 public class Parents extends User {
 
     private String name;
-    private String nomeFamilia;
+    private String nameFamily;
 
     public Parents(){
 
     }
 
-    public Parents(String nome, String nomeFamilia) {
+    public Parents(String nome, String nameFamily) {
         setName(nome);
-        setNomeFamilia(nomeFamilia);
+        setNameFamily(nameFamily);
     }
 
-    public Parents(int id, String nome, String nomeFamilia) {
+    public Parents(int id, String nome, String nameFamily) {
         super(id);
         setName(nome);
-        setNomeFamilia(nomeFamilia);
+        setNameFamily(nameFamily);
     }
 
     @Override
     public String toString() {
         String message = super.toString();
         message += "Nome = " + name + "\n";
-        message += "Nome Familia = " + nomeFamilia;
+        message += "Nome Familia = " + nameFamily;
 
         return message;
     }
@@ -40,12 +40,12 @@ public class Parents extends User {
         this.name = name;
     }
 
-    public String getNomeFamilia() {
-        return nomeFamilia;
+    public String getNameFamily() {
+        return nameFamily;
     }
 
-    public void setNomeFamilia(String nomeFamilia) {
-        this.nomeFamilia = nomeFamilia;
+    public void setNameFamily(String nameFamily) {
+        this.nameFamily = nameFamily;
     }
 
 

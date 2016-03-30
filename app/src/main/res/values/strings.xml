@@ -11,8 +11,6 @@
     <string name="categories">Categorias</string>
     <string name="categories_edit">Editar Categorias</string>
     <string name="categories_add">Cadastrar Categorias</string>
-    <string name="association">"Atribuir atividades"</string>
-    <string name="no_association">Retirar Associação</string>
     <string name="goals">Atividades</string>
     <string name="goals_edit">Editar Atividades</string>
     <string name="goals_add">Cadastrar Atividades</string>
@@ -102,8 +100,7 @@
     <string name="snack_no_bonification">"Não foi possível bonificar. Tente novamente"</string>
     <string name="snack_no_penalization">"Não foi possível penalizar. Tente novamente"</string>
 
-    <!--include Fragment-->
-    <string name="association_button">Associar atividade</string>
+    <string name="association_no">Não há atividades para associar desta categoria</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 </resources>

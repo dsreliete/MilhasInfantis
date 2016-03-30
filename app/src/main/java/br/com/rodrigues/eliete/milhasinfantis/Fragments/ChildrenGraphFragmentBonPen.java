@@ -3,6 +3,7 @@ package br.com.rodrigues.eliete.milhasinfantis.Fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,11 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import br.com.rodrigues.eliete.milhasinfantis.R;
+import br.com.rodrigues.eliete.milhasinfantis.ChildrenGraphActivity;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.ChildrenDAO;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.RealizationDAO;
-import br.com.rodrigues.eliete.milhasinfantis.MainActivity;
 import br.com.rodrigues.eliete.milhasinfantis.Model.Children;
+import br.com.rodrigues.eliete.milhasinfantis.R;
 import br.com.rodrigues.eliete.milhasinfantis.Utils.Utils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
 /**
  * Created by eliete on 9/20/15.
  */
-public class ChildrenGraphFragmentBonPen extends BaseFragment implements DatePickerDialog.OnDateSetListener {
+public class ChildrenGraphFragmentBonPen extends Fragment implements DatePickerDialog.OnDateSetListener {
 
      @Bind(R.id.date) EditText dateEditText;
     @Bind(R.id.text_title) TextView textTitle;
@@ -46,9 +47,6 @@ public class ChildrenGraphFragmentBonPen extends BaseFragment implements DatePic
     @Bind(R.id.noPoint) TextView noPoint;
     @Bind(R.id.cardView)CardView cardView;
     @Bind(R.id.legendXText) TextView legend;
-
-    public static final String TAG = "MilhasApplication";
-    public static final String FRAGMENT_TAG = "FRAGMENT_TAG";
 
     private RealizationDAO realizationDAO;
     private PieChart mChart;
@@ -81,8 +79,8 @@ public class ChildrenGraphFragmentBonPen extends BaseFragment implements DatePic
         if (getArguments() != null) {
             idChild = getArguments().getInt("ID");
             ChildrenDAO childrenDAO = new ChildrenDAO(getActivity());
-            Children c = childrenDAO.consultarPorId(idChild);
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(c.getName());
+            Children c = childrenDAO.fetchChildrenPerId(idChild);
+            ((ChildrenGraphActivity) getActivity()).getSupportActionBar().setTitle(c.getName());
         }
 
         realizationDAO = new RealizationDAO(getActivity());
@@ -193,8 +191,8 @@ public class ChildrenGraphFragmentBonPen extends BaseFragment implements DatePic
         dateEditText.setText(Utils.formatDate(dateEnd));
 
         yData = new ArrayList<Integer>();
-        int bonAction = realizationDAO.consultarBonActions(idChild, dateIni, dateEnd);
-        int penAction = realizationDAO.consultarPenActions(idChild, dateIni, dateEnd);
+        int bonAction = realizationDAO.fetchBonActions(idChild, dateIni, dateEnd);
+        int penAction = realizationDAO.fetchPenActions(idChild, dateIni, dateEnd);
         if(bonAction == 0 && penAction == 0){
             noPoint.setVisibility(View.VISIBLE);
             cardView.setVisibility(View.VISIBLE);
@@ -228,8 +226,4 @@ public class ChildrenGraphFragmentBonPen extends BaseFragment implements DatePic
     }
 
 
-        @Override
-    public String getTittle() {
-        return " ";
-    }
 }

@@ -11,7 +11,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static DBHelper sInstance;
     private static final String DATABASE_NAME = "milhasInfantisDatabase";
-    private static final int DATABASE_VERSION = 15;
+    private static final int DATABASE_VERSION = 17;
 
     public static synchronized DBHelper getInstance(Context context) {
         // Use the application context, which will ensure that you
@@ -28,26 +28,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DBContract.TabelaPai.CREATE_TABLE);
-        db.execSQL(DBContract.TabelaFilho.CREATE_TABLE);
-        db.execSQL(DBContract.TabelaPremio.CREATE_TABLE);
-        db.execSQL(DBContract.TabelaCategoria.CREATE_TABLE);
-        db.execSQL(DBContract.TabelaAtividade.CREATE_TABLE);
-        db.execSQL(DBContract.TabelaPenalidade.CREATE_TABLE);
-        db.execSQL(DBContract.TabelaAssociacao.CREATE_TABLE);
-        db.execSQL(DBContract.TabelaRealizacao.CREATE_TABLE);
+        db.execSQL(DBContract.ParentsTable.CREATE_TABLE);
+        db.execSQL(DBContract.ChildTable.CREATE_TABLE);
+        db.execSQL(DBContract.AwardsTable.CREATE_TABLE);
+        db.execSQL(DBContract.CategoryTable.CREATE_TABLE);
+        db.execSQL(DBContract.ActivityTable.CREATE_TABLE);
+        db.execSQL(DBContract.PenaltyTable.CREATE_TABLE);
+        db.execSQL(DBContract.AssociationTable.CREATE_TABLE);
+        db.execSQL(DBContract.RealizationTable.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DBContract.TabelaFilho.NOME_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + DBContract.TabelaPai.NOME_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + DBContract.TabelaAtividade.NOME_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + DBContract.TabelaCategoria.NOME_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + DBContract.TabelaPenalidade.NOME_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + DBContract.TabelaPremio.NOME_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + DBContract.TabelaAssociacao.NOME_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + DBContract.TabelaRealizacao.NOME_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DBContract.ChildTable.NAME_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DBContract.ParentsTable.NAME_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DBContract.ActivityTable.NAME_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DBContract.CategoryTable.NAME_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DBContract.PenaltyTable.NOME_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DBContract.AwardsTable.NAME_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DBContract.AssociationTable.NAME_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DBContract.RealizationTable.NAME_TABLE + ";");
         onCreate(db);
 
     }

@@ -3,6 +3,7 @@ package br.com.rodrigues.eliete.milhasinfantis.Fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,15 +30,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import br.com.rodrigues.eliete.milhasinfantis.R;
+import br.com.rodrigues.eliete.milhasinfantis.ChildrenGraphActivity;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.CategoriesDAO;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.ChildrenDAO;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.GoalsAssociationDAO;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.RealizationDAO;
-import br.com.rodrigues.eliete.milhasinfantis.MainActivity;
 import br.com.rodrigues.eliete.milhasinfantis.Model.Categories;
 import br.com.rodrigues.eliete.milhasinfantis.Model.Children;
 import br.com.rodrigues.eliete.milhasinfantis.Model.Goals;
+import br.com.rodrigues.eliete.milhasinfantis.R;
 import br.com.rodrigues.eliete.milhasinfantis.Utils.Utils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,7 +46,7 @@ import butterknife.ButterKnife;
 /**
  * Created by eliete on 9/20/15.
  */
-public class ChildrenGraphFragmentGoal extends BaseFragment implements DatePickerDialog.OnDateSetListener {
+public class ChildrenGraphFragmentGoal extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     @Bind(R.id.spinner1) Spinner spinner1;
     @Bind(R.id.date) EditText dateEditText;
@@ -94,8 +95,8 @@ public class ChildrenGraphFragmentGoal extends BaseFragment implements DatePicke
         if (getArguments() != null) {
             idChild = getArguments().getInt("ID");
             ChildrenDAO childrenDAO = new ChildrenDAO(getActivity());
-            Children c = childrenDAO.consultarPorId(idChild);
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(c.getName());
+            Children c = childrenDAO.fetchChildrenPerId(idChild);
+            ((ChildrenGraphActivity) getActivity()).getSupportActionBar().setTitle(c.getName());
         }
 
 
@@ -123,7 +124,7 @@ public class ChildrenGraphFragmentGoal extends BaseFragment implements DatePicke
         spinner1.setVisibility(View.GONE);
 
         spinner1List = new ArrayList<>();
-        spinner1List = categoriesDAO.consultarCategoriesList();
+        spinner1List = categoriesDAO.fetchCategoriesList();
         spinner1List.add(new Categories(1000, "Selecione uma opção de categoria"));
         ArrayAdapter<Categories> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinner1List);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -146,7 +147,7 @@ public class ChildrenGraphFragmentGoal extends BaseFragment implements DatePicke
                 ArrayList<BarEntry> yValsGreen = new ArrayList<BarEntry>();
 
                 if (categories.getId() != 1000) {
-                    goalsList = goalsAssociationDAO.consultarAssociatesListPerCategoryPerChild(categories.getId(), idChild);
+                    goalsList = goalsAssociationDAO.fetchAssociatedGoalsListPerCategoryPerChild(categories.getId(), idChild);
 
                     if(goalsList.size() > 0){
                         for (int i = 0; i < goalsList.size(); i++){
@@ -283,8 +284,4 @@ public class ChildrenGraphFragmentGoal extends BaseFragment implements DatePicke
     }
 
 
-        @Override
-    public String getTittle() {
-        return " ";
-    }
 }

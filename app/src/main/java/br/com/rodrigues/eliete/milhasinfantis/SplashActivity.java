@@ -42,72 +42,72 @@ public class SplashActivity extends Activity {
         penaltiesDAO = new PenaltiesDAO(this);
         awardsDAO = new AwardsDAO(this);
 
-        hasAwdsRegistered = awardsDAO.obterCadastroPremio();
+        hasAwdsRegistered = awardsDAO.obtainAwards();
         if(!hasAwdsRegistered){
             awards = new Awards(getResources().getString(R.string.awards_desc1), 50);
-            awardsDAO.inserir(awards);
+            awardsDAO.insertAwards(awards);
             awards = new Awards(getResources().getString(R.string.awards_desc2), 30);
-            awardsDAO.inserir(awards);
+            awardsDAO.insertAwards(awards);
             awards = new Awards(getResources().getString(R.string.awards_desc3), 70);
-            awardsDAO.inserir(awards);
+            awardsDAO.insertAwards(awards);
             awards = new Awards(getResources().getString(R.string.awards_desc4), 200);
-            awardsDAO.inserir(awards);
+            awardsDAO.insertAwards(awards);
 //            awards = new Awards(getResources().getString(R.string.awards_desc5), 150);
-//            awardsDAO.inserir(awards);
+//            awardsDAO.insertChild(awards);
         }
 
 
-        hasPenaltiesRegistered = penaltiesDAO.obterCadastroPenalidade();
+        hasPenaltiesRegistered = penaltiesDAO.obtainPenalty();
         if(!hasPenaltiesRegistered){
             penalties = new Penalties(getResources().getString(R.string.penalties_desc1), -30);
-            penaltiesDAO.inserir(penalties);
+            penaltiesDAO.insertPenalty(penalties);
             penalties = new Penalties(getResources().getString(R.string.penalties_desc2), -50);
-            penaltiesDAO.inserir(penalties);
+            penaltiesDAO.insertPenalty(penalties);
             penalties = new Penalties(getResources().getString(R.string.penalties_desc3), -100);
-            penaltiesDAO.inserir(penalties);
+            penaltiesDAO.insertPenalty(penalties);
         }
 
-        hasCategoriesRegistered = categoriesDAO.obterCadastroCategoria();
+        hasCategoriesRegistered = categoriesDAO.obtainCategory();
         if(!hasCategoriesRegistered){
             categories = new Categories(getResources().getString(R.string.category_desc1));
-            categoriesDAO.inserir(categories);
+            categoriesDAO.insertCategory(categories);
             categories = new Categories(getResources().getString(R.string.category_desc2));
-            categoriesDAO.inserir(categories);
+            categoriesDAO.insertCategory(categories);
             categories = new Categories(getResources().getString(R.string.category_desc3));
-            categoriesDAO.inserir(categories);
+            categoriesDAO.insertCategory(categories);
 //            categories = new Categories(getResources().getString(R.string.category_desc4));
-//            categoriesDAO.inserir(categories);
+//            categoriesDAO.insertChild(categories);
         }
 
-        hasGoalsRegistered = goalsDAO.obterCadastroAtividade();
+        hasGoalsRegistered = goalsDAO.obtainGoal();
         if(!hasGoalsRegistered){
             goals = new Goals(getResources().getString(R.string.goals_desc1), 0 ,  5 ,  35 , 1);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
             goals = new Goals(getResources().getString(R.string.goals_desc2), 0 ,  5 ,  35 , 1);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
             goals = new Goals(getResources().getString(R.string.goals_desc3), 0 ,  5 ,  20 , 1);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
 
             goals = new Goals(getResources().getString(R.string.goals_desc4),  0 ,  5 ,  40 , 2);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
             goals = new Goals(getResources().getString(R.string.goals_desc5),  0 ,  5 ,  50 , 2);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
             goals = new Goals(getResources().getString(R.string.goals_desc6),  0 ,  5 ,  50 , 2);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
 
             goals = new Goals(getResources().getString(R.string.goals_desc7),  0 ,  5 ,  50 , 3);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
             goals = new Goals(getResources().getString(R.string.goals_desc8),  0 ,  5 ,  50 , 3);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
             goals = new Goals(getResources().getString(R.string.goals_desc9),  0 ,  5 ,  100 , 3);
-            goalsDAO.inserir(goals);
+            goalsDAO.insertGoals(goals);
 
 //            goals = new Goals(getResources().getString(R.string.goals_desc10),  0 ,  5 ,  50 , 4);
-//            goalsDAO.inserir(goals);
+//            goalsDAO.insertChild(goals);
 //            goals = new Goals(getResources().getString(R.string.goals_desc11),  0 ,  5 ,  25 , 4);
-//            goalsDAO.inserir(goals);
+//            goalsDAO.insertChild(goals);
 //            goals = new Goals(getResources().getString(R.string.goals_desc12),  0 ,  5 ,  35 , 4);
-//            goalsDAO.inserir(goals);
+//            goalsDAO.insertChild(goals);
 
         }
 

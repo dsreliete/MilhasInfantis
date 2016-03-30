@@ -3,8 +3,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="16dp"
-        android:background="@android:color/white">
+        android:background="@drawable/statelist_item_background"
+        android:layout_margin="16dp">
 
         <TextView
             android:id="@+id/description_penaltyTextView"

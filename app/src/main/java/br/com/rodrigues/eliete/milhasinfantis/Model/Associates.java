@@ -8,12 +8,13 @@ public class Associates {
     private int idChildren;
     private int idActivity;
     private int catId;
+    private int status;
 
-    public Associates(int idChildren, int idActivity, int idCategory){
+    public Associates(int idChildren, int idActivity, int idCategory, int status){
         this.idChildren = idChildren;
         this.idActivity = idActivity;
         this.catId = idCategory;
-    }
+        this.status = status;}
 
     public int getIdChildren() {
         return idChildren;
@@ -38,6 +39,15 @@ public class Associates {
     public void setCatId(int catId) {
         this.catId = catId;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 
     @Override
     public String toString() {

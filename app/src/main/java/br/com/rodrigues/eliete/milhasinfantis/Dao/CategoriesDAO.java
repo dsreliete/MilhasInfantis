@@ -24,21 +24,21 @@ public class CategoriesDAO {
         this.context = context;
     }
 
-    public boolean inserir(Categories categories){
+    public boolean insertCategory(Categories categories){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaCategoria.CATEGORIA_DESC, categories.getDescription());
-        db.insert(DBContract.TabelaCategoria.NOME_TABLE, null, values);
+        values.put(DBContract.CategoryTable.CATEGORY_DESC, categories.getDescription());
+        db.insert(DBContract.CategoryTable.NAME_TABLE, null, values);
         db.close();
         return true;
     }
 
-    public List<Categories> consultarCategoriesList(){
+    public List<Categories> fetchCategoriesList(){
         List<Categories> lista = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaCategoria.NOME_TABLE, DBContract.TabelaCategoria.CATEGORIA_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.CategoryTable.NAME_TABLE, DBContract.CategoryTable.CATEGORY_COLS, null, null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
@@ -47,7 +47,7 @@ public class CategoriesDAO {
             return lista;
 
         do{
-            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaCategoria.CATEGORIA_ID));
+            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.CategoryTable.CATEGORY_ID));
             String desc = c.getString(1);
             Categories cat = new Categories(id, desc);
             lista.add(cat);
@@ -57,22 +57,22 @@ public class CategoriesDAO {
         return lista;
     }
 
-    public boolean atualizar(int id, String desc){
+    public boolean updateCategory(int id, String desc){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaCategoria.CATEGORIA_DESC, desc);
-        return db.update(DBContract.TabelaCategoria.NOME_TABLE, values, DBContract.TabelaCategoria.CATEGORIA_ID + "=" + id, null) > 0;
+        values.put(DBContract.CategoryTable.CATEGORY_DESC, desc);
+        return db.update(DBContract.CategoryTable.NAME_TABLE, values, DBContract.CategoryTable.CATEGORY_ID + "=" + id, null) > 0;
 
     }
 
 
-    public Categories consultarPorId(int id) throws SQLException {
+    public Categories fetchCategoryPerId(int id) throws SQLException {
 
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        Cursor c = db.query(DBContract.TabelaCategoria.NOME_TABLE, DBContract.TabelaCategoria.CATEGORIA_COLS, DBContract.TabelaCategoria.CATEGORIA_ID + "=" + id, null, null, null, null, null);
+        Cursor c = db.query(DBContract.CategoryTable.NAME_TABLE, DBContract.CategoryTable.CATEGORY_COLS, DBContract.CategoryTable.CATEGORY_ID + "=" + id, null, null, null, null, null);
 
         if (c != null) {
             c.moveToFirst();
@@ -81,7 +81,7 @@ public class CategoriesDAO {
             return null;
         Categories cat;
         do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaCategoria.CATEGORIA_ID));
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.CategoryTable.CATEGORY_ID));
             String desc = c.getString(1);
             cat = new Categories(idd, desc);
         }while (c.moveToNext());
@@ -90,16 +90,16 @@ public class CategoriesDAO {
         return cat;
     }
 
-    public boolean deletarId(long rowId) {
+    public boolean deleteCategoryId(long rowId) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(DBContract.TabelaCategoria.NOME_TABLE, DBContract.TabelaCategoria.CATEGORIA_ID + "=" + rowId, null) > 0;
+        return db.delete(DBContract.CategoryTable.NAME_TABLE, DBContract.CategoryTable.CATEGORY_ID + "=" + rowId, null) > 0;
     }
 
-    public boolean obterCadastroCategoria(){
+    public boolean obtainCategory(){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaCategoria.NOME_TABLE, DBContract.TabelaCategoria.CATEGORIA_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.CategoryTable.NAME_TABLE, DBContract.CategoryTable.CATEGORY_COLS, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0){
             return true;

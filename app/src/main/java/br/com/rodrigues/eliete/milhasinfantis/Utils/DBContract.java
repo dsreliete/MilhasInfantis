@@ -7,130 +7,130 @@ import android.provider.BaseColumns;
  */
 public class DBContract {
 
-    public static class TabelaPai implements BaseColumns{
-        public static final String NOME_TABLE = "pai";
-        public static final String PAI_ID = "_id";
-        public static final String PAI_NOME = "nome";
-        public static final String PAI_FAMILIA = "familia";
-        public static final String PAI_COLS [] = {PAI_ID, PAI_NOME, PAI_FAMILIA};
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NOME_TABLE + " (" + PAI_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PAI_NOME + " VARCHAR(30) NOT NULL, "+ PAI_FAMILIA +
+    public static class ParentsTable implements BaseColumns{
+        public static final String NAME_TABLE = "pai";
+        public static final String PARENT_ID = "_id";
+        public static final String PARENT_NAME = "nome";
+        public static final String PARENT_FAMILY = "familia";
+        public static final String PARENT_COLS[] = {PARENT_ID, PARENT_NAME, PARENT_FAMILY};
+        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NAME_TABLE + " (" + PARENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                PARENT_NAME + " VARCHAR(30) NOT NULL, "+ PARENT_FAMILY +
                 " VARCHAR(30) NOT NULL)";
 
     }
 
-    public static class TabelaFilho implements BaseColumns{
-        public static final String NOME_TABLE = "filho";
-        public static final String FILHO_ID = "_id";
-        public static final String FILHO_NOME = "nome";
-        public static final String FILHO_DT_NASC = "dtNasc";
-        public static final String FILHO_SEXO = "sexo";
-        public static final String FILHO_COLS [] = {FILHO_ID, FILHO_NOME, FILHO_DT_NASC, FILHO_SEXO};
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NOME_TABLE + " (" +
-                FILHO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                FILHO_NOME + " VARCHAR(30) NOT NULL, "+ FILHO_DT_NASC +
-                " DATE NOT NULL," + FILHO_SEXO + " CHARACTER(1))";
+    public static class ChildTable implements BaseColumns{
+        public static final String NAME_TABLE = "filho";
+        public static final String CHILD_ID = "_id";
+        public static final String CHILD_NAME = "nome";
+        public static final String CHILD_BIRTH = "dtNasc";
+        public static final String CHILD_GENDER = "sexo";
+        public static final String CHILD_COLS[] = {CHILD_ID, CHILD_NAME, CHILD_BIRTH, CHILD_GENDER};
+        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NAME_TABLE + " (" +
+                CHILD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CHILD_NAME + " VARCHAR(30) NOT NULL, "+ CHILD_BIRTH +
+                " DATE NOT NULL," + CHILD_GENDER + " CHARACTER(1))";
     }
 
-    public static class TabelaPremio implements BaseColumns{
-        public static final String NOME_TABLE = "premio";
-        public static final String PREMIO_ID = "_id";
-        public static final String PREMIO_DESC = "desc";
-        public static final String PREMIO_PONTO = "ponto";
-        public static final String PREMIO_COLS [] = {PREMIO_ID, PREMIO_DESC, PREMIO_PONTO};
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NOME_TABLE + " (" +
-                PREMIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PREMIO_DESC + " VARCHAR(30) NOT NULL, "+ PREMIO_PONTO + " INTEGER NOT NULL)";
+    public static class AwardsTable implements BaseColumns{
+        public static final String NAME_TABLE = "premio";
+        public static final String AWARD_ID = "_id";
+        public static final String AWARD_DESC = "desc";
+        public static final String AWARD_POINT = "ponto";
+        public static final String AWARD_COLS[] = {AWARD_ID, AWARD_DESC, AWARD_POINT};
+        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NAME_TABLE + " (" +
+                AWARD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                AWARD_DESC + " VARCHAR(30) NOT NULL, "+ AWARD_POINT + " INTEGER NOT NULL)";
     }
 
-    public static class TabelaCategoria implements BaseColumns{
-        public static final String NOME_TABLE = "categoria";
-        public static final String CATEGORIA_ID = "_id";
-        public static final String CATEGORIA_DESC = "desc";
-        public static final String CATEGORIA_COLS [] = {CATEGORIA_ID, CATEGORIA_DESC};
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NOME_TABLE + " (" +
-                CATEGORIA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                CATEGORIA_DESC + " VARCHAR(30) NOT NULL)";
+    public static class CategoryTable implements BaseColumns{
+        public static final String NAME_TABLE = "categoria";
+        public static final String CATEGORY_ID = "_id";
+        public static final String CATEGORY_DESC = "desc";
+        public static final String CATEGORY_COLS[] = {CATEGORY_ID, CATEGORY_DESC};
+        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NAME_TABLE + " (" +
+                CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CATEGORY_DESC + " VARCHAR(30) NOT NULL)";
     }
 
-    public static class TabelaAtividade implements BaseColumns{
-        public static final String NOME_TABLE = "atividade";
-        public static final String ATIVIDADE_ID = "_id";
-        public static final String ATIVIDADE_DESC = "desc";
-        public static final String ATIVIDADE_PVERM = "ponto_vermelho";
-        public static final String ATIVIDADE_PVERD = "ponto_verde";
-        public static final String ATIVIDADE_PAMA = "ponto_amarelo";
-             public static final String ATIVIDADE_CAT_ID = "atividade_categoria_id";
-
-        public static final String ATIVIDADE_COLS [] = {ATIVIDADE_ID, ATIVIDADE_DESC,
-                ATIVIDADE_PVERM, ATIVIDADE_PAMA, ATIVIDADE_PVERD, ATIVIDADE_CAT_ID};
-
-        public static final String CREATE_TABLE = " CREATE TABLE IF NOT EXISTS " + NOME_TABLE + " (" +
-                ATIVIDADE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ATIVIDADE_DESC + " VARCHAR(30) NOT NULL, " +
-                ATIVIDADE_PVERM + " INTEGER NOT NULL, " +
-                ATIVIDADE_PAMA + " INTEGER NOT NULL, " +
-                ATIVIDADE_PVERD + " INTEGER NOT NULL, " +
-                ATIVIDADE_CAT_ID + " INTEGER, FOREIGN KEY(" + ATIVIDADE_CAT_ID + ") REFERENCES " +
-                TabelaCategoria.NOME_TABLE + "(" + TabelaCategoria.CATEGORIA_ID + "))";
+    public static class ActivityTable implements BaseColumns{
+        public static final String NAME_TABLE = "atividade";
+        public static final String ACTIVITY_ID = "_id";
+        public static final String ACTIVITY_DESC = "desc";
+        public static final String ACTIVITY_PVERM = "ponto_vermelho";
+        public static final String ACTIVITY_PVERD = "ponto_verde";
+        public static final String ACTIVITY_PAMA = "ponto_amarelo";
+        public static final String ACTIVITY_CAT_ID = "atividade_categoria_id";
+        public static final String ACTIVITY_COLS[] = {ACTIVITY_ID, ACTIVITY_DESC,
+                ACTIVITY_PVERM, ACTIVITY_PAMA, ACTIVITY_PVERD, ACTIVITY_CAT_ID};
+        public static final String CREATE_TABLE = " CREATE TABLE IF NOT EXISTS " + NAME_TABLE + " (" +
+                ACTIVITY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                ACTIVITY_DESC + " VARCHAR(30) NOT NULL, " +
+                ACTIVITY_PVERM + " INTEGER NOT NULL, " +
+                ACTIVITY_PAMA + " INTEGER NOT NULL, " +
+                ACTIVITY_PVERD + " INTEGER NOT NULL, " +
+                ACTIVITY_CAT_ID + " INTEGER, FOREIGN KEY(" + ACTIVITY_CAT_ID + ") REFERENCES " +
+                CategoryTable.NAME_TABLE + "(" + CategoryTable.CATEGORY_ID + "))";
     }
 
-    public static class TabelaPenalidade implements BaseColumns{
+    public static class PenaltyTable implements BaseColumns{
         public static final String NOME_TABLE = "penalidade";
-        public static final String PENALIDADE_ID = "_id";
-        public static final String PENALIDADE_DESC = "desc";
-        public static final String PENALIDADE_PONTO = "ponto";
-        public static final String PENALIDADE_COLS [] = {PENALIDADE_ID, PENALIDADE_DESC,
-                PENALIDADE_PONTO};
+        public static final String PENALTY_ID = "_id";
+        public static final String PENALTY_DESC = "desc";
+        public static final String PENALTY_POINT = "ponto";
+        public static final String PENALTY_COLS[] = {PENALTY_ID, PENALTY_DESC,
+                PENALTY_POINT};
         public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NOME_TABLE + " (" +
-                PENALIDADE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PENALIDADE_DESC + " VARCHAR(30) NOT NULL, " + PENALIDADE_PONTO +
+                PENALTY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                PENALTY_DESC + " VARCHAR(30) NOT NULL, " + PENALTY_POINT +
                 " INTEGER NOT NULL)";
 
     }
 
-    public static class TabelaAssociacao implements BaseColumns{
-        public static final String NOME_TABLE = "associacao";
-        public static final String ASSOCIACAO_FILHO_ID = "assoc_filho_id";
-        public static final String ASSOCIACAO_ATIVIDADE_ID = "assoc_ativ_id";
-        public static final String ASSOCIACAO_CAT_ID = "assoc_cat_id";
-        public static final String ASSOCIACAO_COLS [] = {ASSOCIACAO_FILHO_ID,
-                ASSOCIACAO_ATIVIDADE_ID, ASSOCIACAO_CAT_ID};
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NOME_TABLE + " (" +
-                ASSOCIACAO_FILHO_ID + " INTEGER NOT NULL, " +
-                ASSOCIACAO_ATIVIDADE_ID + " INTEGER NOT NULL, " +
-                ASSOCIACAO_CAT_ID + " INTEGER NOT NULL, " +
-                "FOREIGN KEY(" + ASSOCIACAO_FILHO_ID + ") REFERENCES " +
-                TabelaFilho.NOME_TABLE + "(" + TabelaFilho.FILHO_ID + "), " +
-                "FOREIGN KEY(" + ASSOCIACAO_ATIVIDADE_ID + ") REFERENCES " +
-                TabelaAtividade.NOME_TABLE + "(" + TabelaAtividade.ATIVIDADE_ID + "),"  +
-                "FOREIGN KEY(" + ASSOCIACAO_CAT_ID + ") REFERENCES " +
-                TabelaCategoria.NOME_TABLE + "(" + TabelaCategoria.CATEGORIA_ID + ")," +
-                "PRIMARY KEY(" + ASSOCIACAO_FILHO_ID + ", " +  ASSOCIACAO_ATIVIDADE_ID + "))";
+    public static class AssociationTable implements BaseColumns{
+        public static final String NAME_TABLE = "associacao";
+        public static final String ASSOCIATION_CHILD_ID = "assoc_filho_id";
+        public static final String ASSOCIATION_ACTIVITY_ID = "assoc_ativ_id";
+        public static final String ASSOCIATION_ACTIVITY_STATUS = "status_associacao";
+        public static final String ASSOCIATION_CAT_ID = "assoc_cat_id";
+        public static final String ASSOCIATION_COLS[] = {ASSOCIATION_CHILD_ID,
+                ASSOCIATION_ACTIVITY_ID, ASSOCIATION_ACTIVITY_STATUS, ASSOCIATION_CAT_ID};
+        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NAME_TABLE + " (" +
+                ASSOCIATION_CHILD_ID + " INTEGER NOT NULL, " +
+                ASSOCIATION_ACTIVITY_ID + " INTEGER NOT NULL, " +
+                ASSOCIATION_ACTIVITY_STATUS + " INTEGER NOT NULL, " +
+                ASSOCIATION_CAT_ID + " INTEGER NOT NULL, " +
+                "FOREIGN KEY(" + ASSOCIATION_CHILD_ID + ") REFERENCES " +
+                ChildTable.NAME_TABLE + "(" + ChildTable.CHILD_ID + "), " +
+                "FOREIGN KEY(" + ASSOCIATION_ACTIVITY_ID + ") REFERENCES " +
+                ActivityTable.NAME_TABLE + "(" + ActivityTable.ACTIVITY_ID + "),"  +
+                "FOREIGN KEY(" + ASSOCIATION_CAT_ID + ") REFERENCES " +
+                CategoryTable.NAME_TABLE + "(" + CategoryTable.CATEGORY_ID + ")," +
+                "PRIMARY KEY(" + ASSOCIATION_CHILD_ID + ", " + ASSOCIATION_ACTIVITY_ID + "))";
 
 
     }
 
-    public static class TabelaRealizacao implements BaseColumns{
-        public static final String NOME_TABLE = "realizacao";
-        public static final String REALIZACAO_ID = "realizacao_id";
-        public static final String REALIZACAO_FILHO_ID = "realizacao_filho_id"; //id filho
-        public static final String REALIZACAO_ACAO_ID = "realizacao_acao_id"; //id de atividade, penalidade, premio, categoria, filho, bonificaça etc
-        public static final String REALIZACAO_ACAO_CAT_ID = "realizacao_acao_cat_id"; //atributo nulo, somente para atividade
-        public static final String REALIZACAO_TIPO_ACAO = "realizacao_acao_tipo"; // cadastrar. editar, excluir, penalizar, associar. Qq ação do app
-        public static final String REALIZACAO_PONTO = "realizacao_ponto"; // valor do ponto
-        public static final String REALIZACAO_TIPO_PONTO = "realizacao_ponto_tipo"; // atributo nulo. Só para bonificar, penalizar ou premiar. O Tipo do ponto pode ser: verde, verm, amarelo ou azul
-        public static final String REALIZACAO_DATA = "realizacao_data";
-        public static final String REALIZACAO_HORA = "realizacao_hora";
-        public static final String REALIZACAO_COLS [] = {REALIZACAO_ID, REALIZACAO_FILHO_ID,
-                REALIZACAO_ACAO_ID, REALIZACAO_ACAO_CAT_ID, REALIZACAO_TIPO_ACAO, REALIZACAO_PONTO, REALIZACAO_TIPO_PONTO,
-                REALIZACAO_DATA, REALIZACAO_HORA};
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NOME_TABLE + " (" +
-                REALIZACAO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + REALIZACAO_ACAO_ID +
-                " INTEGER NOT NULL, " + REALIZACAO_ACAO_CAT_ID + " INTEGER, " + REALIZACAO_TIPO_ACAO + " VARCHAR(15) NOT NULL, " +
-                REALIZACAO_FILHO_ID + " INTEGER NOT NULL, " + REALIZACAO_PONTO + " REAL, "
-                + REALIZACAO_TIPO_PONTO + " VARCHAR(15), " + REALIZACAO_DATA + " TEXT NOT NULL, " +
-                REALIZACAO_HORA + " VARCHAR(4))";
+    public static class RealizationTable implements BaseColumns{
+        public static final String NAME_TABLE = "realizacao";
+        public static final String REALIZATION_ID = "realizacao_id";
+        public static final String REALIZATION_CHILD_ID = "realizacao_filho_id"; //id filho
+        public static final String REALIZATION_ACTION_ID = "realizacao_acao_id"; //id de atividade, penalidade, premio, categoria, filho, bonificaça etc
+        public static final String REALIZATION_ACTION_CAT_ID = "realizacao_acao_cat_id"; //atributo nulo, somente para atividade
+        public static final String REALIZATION_ACTION_TYPE = "realizacao_acao_tipo"; // cadastrar. editar, excluir, penalizar, associar. Qq ação do app
+        public static final String REALIZATION_POINT = "realizacao_ponto"; // valor do ponto
+        public static final String REALIZATION_POINT_TYPE = "realizacao_ponto_tipo"; // atributo nulo. Só para bonificar, penalizar ou premiar. O Tipo do ponto pode ser: verde, verm, amarelo ou azul
+        public static final String REALIZATION_DATE = "realizacao_data";
+        public static final String REALIZATION_HOUR = "realizacao_hora";
+        public static final String REALIZATION_COLS[] = {REALIZATION_ID, REALIZATION_CHILD_ID,
+                REALIZATION_ACTION_ID, REALIZATION_ACTION_CAT_ID, REALIZATION_ACTION_TYPE, REALIZATION_POINT, REALIZATION_POINT_TYPE,
+                REALIZATION_DATE, REALIZATION_HOUR};
+        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + NAME_TABLE + " (" +
+                REALIZATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + REALIZATION_ACTION_ID +
+                " INTEGER NOT NULL, " + REALIZATION_ACTION_CAT_ID + " INTEGER, " + REALIZATION_ACTION_TYPE + " VARCHAR(15) NOT NULL, " +
+                REALIZATION_CHILD_ID + " INTEGER NOT NULL, " + REALIZATION_POINT + " REAL, "
+                + REALIZATION_POINT_TYPE + " VARCHAR(15), " + REALIZATION_DATE + " TEXT NOT NULL, " +
+                REALIZATION_HOUR + " VARCHAR(4))";
 
     }
 

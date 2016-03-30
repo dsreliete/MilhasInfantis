@@ -24,62 +24,30 @@ public class GoalsAssociationDAO {
         this.context = context;
     }
 
-    public boolean inserir(Associates a){
+    public boolean insertAssociation(Associates a){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaAssociacao.ASSOCIACAO_FILHO_ID, a.getIdChildren());
-        values.put(DBContract.TabelaAssociacao.ASSOCIACAO_ATIVIDADE_ID, a.getIdActivity());
-        values.put(DBContract.TabelaAssociacao.ASSOCIACAO_CAT_ID, a.getCatId());
-        db.insert(DBContract.TabelaAssociacao.NOME_TABLE, null, values);
+        values.put(DBContract.AssociationTable.ASSOCIATION_CHILD_ID, a.getIdChildren());
+        values.put(DBContract.AssociationTable.ASSOCIATION_ACTIVITY_ID, a.getIdActivity());
+        values.put(DBContract.AssociationTable.ASSOCIATION_CAT_ID, a.getCatId());
+        values.put(DBContract.AssociationTable.ASSOCIATION_ACTIVITY_STATUS, a.getStatus());
+        db.insert(DBContract.AssociationTable.NAME_TABLE, null, values);
         db.close();
         return true;
     }
 
-//    public List<Goals> consultarAssociatesListPerChild(int idChild){
-//        List<Goals> lista = new ArrayList<>();
-//        DBHelper helper = DBHelper.getInstance(context);
-//        SQLiteDatabase db = helper.getReadableDatabase();
-//
-//        String query = "SELECT * FROM " + DBContract.TabelaAtividade.NOME_TABLE + ", " +
-//                DBContract.TabelaAssociacao.NOME_TABLE + " WHERE " + DBContract.TabelaAtividade.ATIVIDADE_ID +
-//                " = " + DBContract.TabelaAssociacao.ASSOCIACAO_ATIVIDADE_ID + " AND " +
-//                DBContract.TabelaAssociacao.ASSOCIACAO_FILHO_ID + " = " + idChild;
-//
-//        Cursor c = db.rawQuery(query, null);
-//
-//        if(c != null)
-//            c.moveToFirst();
-//
-//        if (c.getCount() == 0)
-//            return lista;
-//
-//        Goals goals;
-//        do{
-//            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_ID));
-//            String desc = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_DESC));
-//            int red = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERM));
-//            int yellow = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PAMA));
-//            int green = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERD));
-//            int catId = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_CAT_ID));
-//            goals = new Goals(idd, desc, red, yellow, green, catId);
-//            lista.add(goals);
-//        }while (c.moveToNext());
-//        c.close();
-//        db.close();
-//        return lista;
-//    }
 
-    public List<Goals> consultarAssociatesListPerCategoryPerChild(int idCategory, int idChild){
+    public List<Goals> fetchAssociatedGoalsListPerCategoryPerChild(int idCategory, int idChild){
         List<Goals> lista = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String query = "SELECT * FROM " + DBContract.TabelaAtividade.NOME_TABLE + ", " +
-                DBContract.TabelaAssociacao.NOME_TABLE + " WHERE " + DBContract.TabelaAtividade.ATIVIDADE_ID +
-                " = " + DBContract.TabelaAssociacao.ASSOCIACAO_ATIVIDADE_ID + " AND " +
-                DBContract.TabelaAssociacao.ASSOCIACAO_CAT_ID + " = " + idCategory + " AND " +
-                DBContract.TabelaAssociacao.ASSOCIACAO_FILHO_ID + " = " + idChild;
+        String query = "SELECT * FROM " + DBContract.ActivityTable.NAME_TABLE + ", " +
+                DBContract.AssociationTable.NAME_TABLE + " WHERE " + DBContract.ActivityTable.ACTIVITY_ID +
+                " = " + DBContract.AssociationTable.ASSOCIATION_ACTIVITY_ID + " AND " +
+                DBContract.AssociationTable.ASSOCIATION_CAT_ID + " = " + idCategory + " AND " +
+                DBContract.AssociationTable.ASSOCIATION_CHILD_ID + " = " + idChild;
 
         Cursor c = db.rawQuery(query, null);
 
@@ -91,12 +59,12 @@ public class GoalsAssociationDAO {
 
         Goals goals;
         do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_ID));
-            String desc = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_DESC));
-            int red = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERM));
-            int yellow = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PAMA));
-            int green = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERD));
-            int catId = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_CAT_ID));
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_ID));
+            String desc = c.getString(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_DESC));
+            int red = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PVERM));
+            int yellow = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PAMA));
+            int green = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PVERD));
+            int catId = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_CAT_ID));
             goals = new Goals(idd, desc, red, yellow, green, catId);
             lista.add(goals);
         }while (c.moveToNext());
@@ -105,12 +73,13 @@ public class GoalsAssociationDAO {
         return lista;
     }
 
-    public List<Associates> consultarAssociatesListPerCategory(int idCategory){
+    public List<Associates> fetchAssociatesListPerCategoryPerChild(int idCategory, int idChildren){
         List<Associates> lista = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaAssociacao.NOME_TABLE, DBContract.TabelaAssociacao.ASSOCIACAO_COLS,
-                DBContract.TabelaAssociacao.ASSOCIACAO_CAT_ID + "=" + idCategory, null, null, null, null, null);
+        Cursor c = db.query(DBContract.AssociationTable.NAME_TABLE, DBContract.AssociationTable.ASSOCIATION_COLS,
+                DBContract.AssociationTable.ASSOCIATION_CAT_ID + "=" + idCategory + " AND " +
+                        DBContract.AssociationTable.ASSOCIATION_CHILD_ID + " = " + idChildren, null, null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
@@ -120,9 +89,10 @@ public class GoalsAssociationDAO {
 
         Associates a;
         do{
-            int idChild = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAssociacao.ASSOCIACAO_FILHO_ID));
-            int idActivity = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAssociacao.ASSOCIACAO_ATIVIDADE_ID));
-            a = new Associates(idChild, idActivity, idCategory);
+            int idChild = c.getInt(c.getColumnIndexOrThrow(DBContract.AssociationTable.ASSOCIATION_CHILD_ID));
+            int idActivity = c.getInt(c.getColumnIndexOrThrow(DBContract.AssociationTable.ASSOCIATION_ACTIVITY_ID));
+            int status = c.getInt(c.getColumnIndexOrThrow(DBContract.AssociationTable.ASSOCIATION_ACTIVITY_STATUS));
+            a = new Associates(idChild, idActivity, idCategory, status);
             lista.add(a);
         }while (c.moveToNext());
         c.close();
@@ -130,10 +100,36 @@ public class GoalsAssociationDAO {
         return lista;
     }
 
-    public boolean obterCadastroAssociacao(){
+    public List<Associates> fetchAssociatesListPerCategory(int idCategory){
+        List<Associates> lista = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaAssociacao.NOME_TABLE, DBContract.TabelaAssociacao.ASSOCIACAO_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.AssociationTable.NAME_TABLE, DBContract.AssociationTable.ASSOCIATION_COLS,
+                DBContract.AssociationTable.ASSOCIATION_CAT_ID + "=" + idCategory, null, null, null, null, null);
+
+        if(c != null)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return lista;
+
+        Associates a;
+        do{
+            int idChild = c.getInt(c.getColumnIndexOrThrow(DBContract.AssociationTable.ASSOCIATION_CHILD_ID));
+            int idActivity = c.getInt(c.getColumnIndexOrThrow(DBContract.AssociationTable.ASSOCIATION_ACTIVITY_ID));
+            int status = c.getInt(c.getColumnIndexOrThrow(DBContract.AssociationTable.ASSOCIATION_ACTIVITY_STATUS));
+            a = new Associates(idChild, idActivity, idCategory, status);
+            lista.add(a);
+        }while (c.moveToNext());
+        c.close();
+        db.close();
+        return lista;
+    }
+
+    public boolean obtainAssociation(){
+        DBHelper helper = DBHelper.getInstance(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor c = db.query(DBContract.AssociationTable.NAME_TABLE, DBContract.AssociationTable.ASSOCIATION_COLS, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0){
             return true;
@@ -142,11 +138,11 @@ public class GoalsAssociationDAO {
         }
     }
 
-     public boolean deletarId(Associates a) {
+     public boolean deleteAssociationId(Associates a) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(DBContract.TabelaAssociacao.NOME_TABLE,
-                DBContract.TabelaAssociacao.ASSOCIACAO_FILHO_ID + "=" + a.getIdChildren() + " AND " +
-                        DBContract.TabelaAssociacao.ASSOCIACAO_ATIVIDADE_ID + "=" + a.getIdActivity(), null) > 0;
+        return db.delete(DBContract.AssociationTable.NAME_TABLE,
+                DBContract.AssociationTable.ASSOCIATION_CHILD_ID + "=" + a.getIdChildren() + " AND " +
+                        DBContract.AssociationTable.ASSOCIATION_ACTIVITY_ID + "=" + a.getIdActivity(), null) > 0;
     }
 }

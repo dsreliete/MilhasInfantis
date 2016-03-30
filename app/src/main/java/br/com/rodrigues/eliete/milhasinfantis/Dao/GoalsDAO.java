@@ -24,25 +24,26 @@ public class GoalsDAO {
         this.context = context;
     }
 
-    public boolean inserir(Goals goals){
+    public boolean insertGoals(Goals goals){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_DESC, goals.getDescription());
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_PVERM, goals.getRedPoint());
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_PAMA, goals.getYellowPoint());
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_PVERD, goals.getGreenPoint());
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_CAT_ID, goals.getCatId());
-        db.insert(DBContract.TabelaAtividade.NOME_TABLE, null, values);
+        values.put(DBContract.ActivityTable.ACTIVITY_DESC, goals.getDescription());
+        values.put(DBContract.ActivityTable.ACTIVITY_PVERM, goals.getRedPoint());
+        values.put(DBContract.ActivityTable.ACTIVITY_PAMA, goals.getYellowPoint());
+        values.put(DBContract.ActivityTable.ACTIVITY_PVERD, goals.getGreenPoint());
+        values.put(DBContract.ActivityTable.ACTIVITY_CAT_ID, goals.getCatId());
+        db.insert(DBContract.ActivityTable.NAME_TABLE, null, values);
         db.close();
         return true;
     }
 
-    public List<Goals> consultarGoalsList(){
+
+    public List<Goals> fetchGoalsListPerCategory(int id){
         List<Goals> lista = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaAtividade.NOME_TABLE, DBContract.TabelaAtividade.ATIVIDADE_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.ActivityTable.NAME_TABLE, DBContract.ActivityTable.ACTIVITY_COLS, DBContract.ActivityTable.ACTIVITY_CAT_ID + "=" + id, null, null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
@@ -52,39 +53,11 @@ public class GoalsDAO {
 
         Goals goals;
         do{
-            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_ID));
-            String desc = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_DESC));
-            int red = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERM));
-            int yellow = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PAMA));
-            int green = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERD));
-            int catId = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_CAT_ID));
-            goals = new Goals(id, desc, red, yellow, green, catId);
-            lista.add(goals);
-        }while (c.moveToNext());
-        c.close();
-        db.close();
-        return lista;
-    }
-
-    public List<Goals> consultarGoalsListPerCategory(int id){
-        List<Goals> lista = new ArrayList<>();
-        DBHelper helper = DBHelper.getInstance(context);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaAtividade.NOME_TABLE, DBContract.TabelaAtividade.ATIVIDADE_COLS, DBContract.TabelaAtividade.ATIVIDADE_CAT_ID + "=" + id, null, null, null, null, null);
-
-        if(c != null)
-            c.moveToFirst();
-
-        if (c.getCount() == 0)
-            return lista;
-
-        Goals goals;
-        do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_ID));
-            String desc = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_DESC));
-            int red = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERM));
-            int yellow = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PAMA));
-            int green = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERD));
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_ID));
+            String desc = c.getString(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_DESC));
+            int red = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PVERM));
+            int yellow = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PAMA));
+            int green = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PVERD));
             goals = new Goals(idd, desc, red, yellow, green, id);
             lista.add(goals);
         }while (c.moveToNext());
@@ -93,41 +66,42 @@ public class GoalsDAO {
         return lista;
     }
 
-    public boolean atualizar(int id, String description, int red, int yellow, int green, int catId){
+    public boolean updateGoal(int id, String description, int red, int yellow, int green, int catId){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_DESC, description);
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_PVERM, red);
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_PAMA, yellow);
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_PVERD, green);
-        values.put(DBContract.TabelaAtividade.ATIVIDADE_CAT_ID, catId);
-        return db.update(DBContract.TabelaAtividade.NOME_TABLE, values, DBContract.TabelaAtividade.ATIVIDADE_ID + "=" + id, null) > 0;
+        values.put(DBContract.ActivityTable.ACTIVITY_DESC, description);
+        values.put(DBContract.ActivityTable.ACTIVITY_PVERM, red);
+        values.put(DBContract.ActivityTable.ACTIVITY_PAMA, yellow);
+        values.put(DBContract.ActivityTable.ACTIVITY_PVERD, green);
+        values.put(DBContract.ActivityTable.ACTIVITY_CAT_ID, catId);
+        return db.update(DBContract.ActivityTable.NAME_TABLE, values, DBContract.ActivityTable.ACTIVITY_ID + "=" + id, null) > 0;
 
     }
 
 
-    public Goals consultarGoalPorId(int idActivity) throws SQLException {
+    public Goals fetchGoalPerId(int idActivity) throws SQLException {
 
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        Cursor c = db.query(DBContract.TabelaAtividade.NOME_TABLE, DBContract.TabelaAtividade.ATIVIDADE_COLS, DBContract.TabelaAtividade.ATIVIDADE_ID + "=" + idActivity, null, null, null, null, null);
+        Cursor c = db.query(DBContract.ActivityTable.NAME_TABLE, DBContract.ActivityTable.ACTIVITY_COLS, DBContract.ActivityTable.ACTIVITY_ID + "=" + idActivity, null, null, null, null, null);
 
         if (c != null) {
             c.moveToFirst();
         }
-        if (c.getCount() == 0)
-            return null;
 
-        Goals goals;
+        Goals goals = null;
+        if (c.getCount() == 0)
+            return goals;
+
         do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_ID));
-            String desc = c.getString(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_DESC));
-            int red = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERM));
-            int yellow = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PAMA));
-            int green = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_PVERD));
-            int catId = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaAtividade.ATIVIDADE_CAT_ID));
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_ID));
+            String desc = c.getString(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_DESC));
+            int red = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PVERM));
+            int yellow = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PAMA));
+            int green = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_PVERD));
+            int catId = c.getInt(c.getColumnIndexOrThrow(DBContract.ActivityTable.ACTIVITY_CAT_ID));
             goals = new Goals(idd, desc, red, yellow, green, catId);
         }while (c.moveToNext());
         c.close();
@@ -135,27 +109,22 @@ public class GoalsDAO {
         return goals;
     }
 
-    public boolean deletarId(long rowId) {
+    public boolean deleteGoalId(long rowId) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(DBContract.TabelaAtividade.NOME_TABLE, DBContract.TabelaAtividade.ATIVIDADE_ID + "=" + rowId, null) > 0;
+        return db.delete(DBContract.ActivityTable.NAME_TABLE, DBContract.ActivityTable.ACTIVITY_ID + "=" + rowId, null) > 0;
     }
 
-    public boolean obterCadastroAtividade(){
+    public boolean obtainGoal(){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaAtividade.NOME_TABLE, DBContract.TabelaAtividade.ATIVIDADE_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.ActivityTable.NAME_TABLE, DBContract.ActivityTable.ACTIVITY_COLS, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0){
             return true;
         }else{
             return false;
         }
-    }
-
-    public boolean getBooleanValue(int value){
-        boolean result = value == 1 ? true : false;
-        return result;
     }
 
 }

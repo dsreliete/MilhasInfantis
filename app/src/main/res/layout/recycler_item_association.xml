@@ -7,16 +7,19 @@
     android:padding="16dp"
     android:background="@android:color/white">
 
+    <TextView
+        android:id="@+id/description_goalsTextView"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/description_goalsTextView"
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:textStyle="bold"/>
-
-
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check"
+        android:layout_alignRight="@+id/description_goalsTextView"/>
 
     <LinearLayout
         android:id="@+id/green_container"

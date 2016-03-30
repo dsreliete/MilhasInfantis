@@ -6,20 +6,20 @@ package br.com.rodrigues.eliete.milhasinfantis.Model;
 public class Children extends User {
 
     private String name;
-    private String dataNasc;
+    private String birthDate;
     private String gender;
 
 
-    public Children(String nome, String dataNasc, String gender) {
+    public Children(String nome, String birthDate, String gender) {
         setName(nome);
-        setDataNasc(dataNasc);
+        setBirthDate(birthDate);
         setGender(gender);
     }
 
     public Children(int id, String nome, String data, String gender) {
         super(id);
         setName(nome);
-        setDataNasc(data);
+        setBirthDate(data);
         setGender(gender);
     }
 
@@ -27,7 +27,7 @@ public class Children extends User {
     public String toString() {
         String message = super.toString();
         message += "Nome = " + name + "\n";
-        message += "dataNasc = " + dataNasc;
+        message += "birthDate = " + birthDate;
         message += "gender = " + gender;
 
         return message;
@@ -41,12 +41,12 @@ public class Children extends User {
         this.gender = gender;
     }
 
-    public String getDataNasc() {
-        return dataNasc;
+    public String getBirthDate() {
+        return birthDate;
     }
 
-    public void setDataNasc(String dataNasc) {
-        this.dataNasc = dataNasc;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getName() {

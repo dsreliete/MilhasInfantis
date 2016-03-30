@@ -2,11 +2,13 @@ package br.com.rodrigues.eliete.milhasinfantis.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rodrigues.eliete.milhasinfantis.R;
@@ -21,9 +23,12 @@ public class AwardsListAdapter extends RecyclerView.Adapter<AwardsListAdapter.Aw
 
     private List<Awards> awardsList;
     private Context context;
+    private SparseBooleanArray selectedItems;
+
 
     public AwardsListAdapter(List<Awards> awardsList){
         this.awardsList = awardsList;
+        selectedItems = new SparseBooleanArray();
     }
 
     @Override
@@ -42,6 +47,7 @@ public class AwardsListAdapter extends RecyclerView.Adapter<AwardsListAdapter.Aw
             holder.awdsDescriptionTextView.setText(awards.getDescription());
             holder.pointsAwdsTextView.setText(context.getResources().getString(R.string.rescue_point_textview) +
                     " " + awards.getPoints() + " " + context.getResources().getString(R.string.points));
+            holder.itemView.setActivated(selectedItems.get(position, false));
         }
     }
 
@@ -61,5 +67,33 @@ public class AwardsListAdapter extends RecyclerView.Adapter<AwardsListAdapter.Aw
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public void toggleSelection(int pos) {
+        if (selectedItems.get(pos, false)) {
+            selectedItems.delete(pos);
+        }
+        else {
+            selectedItems.put(pos, true);
+        }
+        notifyItemChanged(pos);
+    }
+
+    public void clearSelections() {
+        selectedItems.clear();
+        notifyDataSetChanged();
+    }
+
+    public List<Integer> getSelectedItems() {
+        List<Integer> items = new ArrayList<Integer>(selectedItems.size());
+        for (int i = 0; i < selectedItems.size(); i++) {
+            items.add(selectedItems.keyAt(i));
+        }
+        return items;
+    }
+
+    public void removeItem(int position) {
+        awardsList.remove(position);
+        notifyItemRemoved(position);
     }
 }

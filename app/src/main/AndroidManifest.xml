@@ -25,6 +25,184 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name=".ParentsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".ChildrenRegisterActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".CategoriesActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".CategoriesRegisterActivity"
+            android:parentActivityName=".CategoriesActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CategoriesActivity" />
+        </activity>
+
+        <activity android:name=".GoalsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".GoalsRegisterActivity"
+            android:parentActivityName=".GoalsActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GoalsActivity" />
+        </activity>
+
+        <activity android:name=".AwardsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".AwardsRegisterActivity"
+            android:parentActivityName=".AwardsActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AwardsActivity" />
+        </activity>
+
+        <activity android:name=".PenaltiesActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".PenaltiesRegisterActivity"
+            android:parentActivityName=".PenaltiesActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PenaltiesActivity" />
+        </activity>
+
+        <activity android:name=".AboutAppActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".GraphAllChildActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".ChildrenDetailActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".ChildrenEditionActivity"
+            android:parentActivityName=".ChildrenDetailActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ChildrenDetailActivity" />
+        </activity>
+
+        <activity android:name=".LikeActivity"
+            android:parentActivityName=".ChildrenDetailActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ChildrenDetailActivity" />
+        </activity>
+
+        <activity android:name=".DislikeActivity"
+            android:parentActivityName=".ChildrenDetailActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ChildrenDetailActivity" />
+        </activity>
+
+        <activity android:name=".ChildrenRescuePointsActivity"
+            android:parentActivityName=".ChildrenDetailActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ChildrenDetailActivity" />
+        </activity>
+
+        <activity android:name=".HistoryActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".AssociationActivity"
+            android:parentActivityName=".ChildrenDetailActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ChildrenDetailActivity" />
+        </activity>
+
+        <activity android:name=".ChildrenGraphActivity"
+            android:parentActivityName=".ChildrenDetailActivity"
+            android:theme="@style/AppThemeLight"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ChildrenDetailActivity" />
+        </activity>
+
+
+
     </application>
 
 </manifest>

@@ -2,20 +2,6 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="AppTheme.Base"/>
-
-    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
-
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryDark">@color/darkPrimaryColor</item>
-        <item name="colorAccent">@color/accentColor</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:listDivider">@color/grey_medium</item>
-
-
-
-    </style>
-
 
     <style name="AppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
 
@@ -24,8 +10,8 @@
         <item name="colorAccent">@color/accentColor</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:listDivider">@color/grey_medium</item>
-
-
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/ActionMode</item>
     </style>
 
     <style name="menu_labels_style">
@@ -33,7 +19,9 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-
+    <style name="ActionMode" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/lightPrimaryColor</item>
+    </style>
 
 
 </resources>

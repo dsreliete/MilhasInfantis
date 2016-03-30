@@ -3,6 +3,7 @@ package br.com.rodrigues.eliete.milhasinfantis.Fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +27,11 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import br.com.rodrigues.eliete.milhasinfantis.R;
+import br.com.rodrigues.eliete.milhasinfantis.ChildrenGraphActivity;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.ChildrenDAO;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.RealizationDAO;
-import br.com.rodrigues.eliete.milhasinfantis.MainActivity;
 import br.com.rodrigues.eliete.milhasinfantis.Model.Children;
+import br.com.rodrigues.eliete.milhasinfantis.R;
 import br.com.rodrigues.eliete.milhasinfantis.Utils.Utils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,7 +39,7 @@ import butterknife.ButterKnife;
 /**
  * Created by eliete on 9/20/15.
  */
-public class ChildrenGraphFragmentTotal extends BaseFragment implements DatePickerDialog.OnDateSetListener {
+public class ChildrenGraphFragmentTotal extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     @Bind(R.id.spinner1) Spinner spinner1;
     @Bind(R.id.date) EditText dateEditText;
@@ -50,9 +51,6 @@ public class ChildrenGraphFragmentTotal extends BaseFragment implements DatePick
     @Bind(R.id.noPoint) TextView noPoint;
     @Bind(R.id.cardView)CardView cardView;
     @Bind(R.id.legendXText) TextView legendXText;
-
-    public static final String TAG = "MilhasApplication";
-    public static final String FRAGMENT_TAG = "FRAGMENT_TAG";
 
     private RealizationDAO realizationDAO;
     private PieChart mChart;
@@ -86,8 +84,8 @@ public class ChildrenGraphFragmentTotal extends BaseFragment implements DatePick
         if (getArguments() != null) {
             idChild = getArguments().getInt("ID");
             ChildrenDAO childrenDAO = new ChildrenDAO(getActivity());
-            Children c = childrenDAO.consultarPorId(idChild);
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(c.getName());
+            Children c = childrenDAO.fetchChildrenPerId(idChild);
+            ((ChildrenGraphActivity) getActivity()).getSupportActionBar().setTitle(c.getName());
         }
 
         realizationDAO = new RealizationDAO(getActivity());
@@ -135,9 +133,9 @@ public class ChildrenGraphFragmentTotal extends BaseFragment implements DatePick
                 cardView.setVisibility(View.GONE);
                 switch (position) {
                     case 0: //Total Geral
-                        int redAction = realizationDAO.consultarTotalRedActions(idChild, dateIni, dateEnd);
-                        int yellowAction = realizationDAO.consultarTotalYellowActions(idChild, dateIni, dateEnd);
-                        int greenAction = realizationDAO.consultarTotalGreenActions(idChild, dateIni, dateEnd);
+                        int redAction = realizationDAO.fetchTotalRedActions(idChild, dateIni, dateEnd);
+                        int yellowAction = realizationDAO.fetchTotalYellowActions(idChild, dateIni, dateEnd);
+                        int greenAction = realizationDAO.fetchTotalGreenActions(idChild, dateIni, dateEnd);
 
                         if(redAction == 0 && yellowAction == 0 && greenAction == 0 ) {
                             noPoint.setVisibility(View.VISIBLE);
@@ -174,9 +172,9 @@ public class ChildrenGraphFragmentTotal extends BaseFragment implements DatePick
                         break;
                     case 1: //Bonificação
 
-                        int redBonAction = realizationDAO.consultarBonificationRedActions(idChild, dateIni, dateEnd);
-                        int yellowBonAction = realizationDAO.consultarBonificationYellowActions(idChild, dateIni, dateEnd);
-                        int greenBonAction = realizationDAO.consultarBonificationGreenActions(idChild, dateIni, dateEnd);
+                        int redBonAction = realizationDAO.fetchBonificationRedActions(idChild, dateIni, dateEnd);
+                        int yellowBonAction = realizationDAO.fetchBonificationYellowActions(idChild, dateIni, dateEnd);
+                        int greenBonAction = realizationDAO.fetchBonificationGreenActions(idChild, dateIni, dateEnd);
 
                         if (redBonAction == 0 && yellowBonAction == 0 && greenBonAction == 0) {
                             noPoint.setVisibility(View.VISIBLE);
@@ -211,7 +209,7 @@ public class ChildrenGraphFragmentTotal extends BaseFragment implements DatePick
                         break;
                     case 2: //Pontos Extras
 
-                        int redEPAction = realizationDAO.consultarExtraPointsRedActions(idChild, dateIni, dateEnd);
+                        int redEPAction = realizationDAO.fetchExtraPointsRedActions(idChild, dateIni, dateEnd);
                         int greenEPAction = realizationDAO.consultarExtraPointsGreenActions(idChild, dateIni, dateEnd);
 
                         if(redEPAction == 0 && greenEPAction == 0) {
@@ -363,8 +361,4 @@ public class ChildrenGraphFragmentTotal extends BaseFragment implements DatePick
     }
 
 
-        @Override
-    public String getTittle() {
-        return " ";
-    }
 }

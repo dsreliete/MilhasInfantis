@@ -24,22 +24,22 @@ public class PenaltiesDAO {
         this.context = context;
     }
 
-    public boolean inserir(Penalties penalties){
+    public boolean insertPenalty(Penalties penalties){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaPenalidade.PENALIDADE_DESC, penalties.getDescription());
-        values.put(DBContract.TabelaPenalidade.PENALIDADE_PONTO, penalties.getPoint());
-        db.insert(DBContract.TabelaPenalidade.NOME_TABLE, null, values);
+        values.put(DBContract.PenaltyTable.PENALTY_DESC, penalties.getDescription());
+        values.put(DBContract.PenaltyTable.PENALTY_POINT, penalties.getPoint());
+        db.insert(DBContract.PenaltyTable.NOME_TABLE, null, values);
         db.close();
         return true;
     }
 
-    public List<Penalties> consultarPenaltiesList(){
+    public List<Penalties> fetchPenaltiesList(){
         List<Penalties> lista = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaPenalidade.NOME_TABLE, DBContract.TabelaPenalidade.PENALIDADE_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.PenaltyTable.NOME_TABLE, DBContract.PenaltyTable.PENALTY_COLS, null, null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
@@ -48,7 +48,7 @@ public class PenaltiesDAO {
             return lista;
 
         do{
-            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaPenalidade.PENALIDADE_ID));
+            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.PenaltyTable.PENALTY_ID));
             String desc = c.getString(1);
             int point = c.getInt(2);
             Penalties pen = new Penalties(id, desc, point);
@@ -59,23 +59,23 @@ public class PenaltiesDAO {
         return lista;
     }
 
-    public boolean atualizar(int id, String desc, int point){
+    public boolean updatePenalty(int id, String desc, int point){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaPenalidade.PENALIDADE_DESC, desc);
-        values.put(DBContract.TabelaPenalidade.PENALIDADE_PONTO, point);
+        values.put(DBContract.PenaltyTable.PENALTY_DESC, desc);
+        values.put(DBContract.PenaltyTable.PENALTY_POINT, point);
 
-        return db.update(DBContract.TabelaPenalidade.NOME_TABLE, values, DBContract.TabelaPenalidade.PENALIDADE_ID + "=" + id, null) > 0;
+        return db.update(DBContract.PenaltyTable.NOME_TABLE, values, DBContract.PenaltyTable.PENALTY_ID + "=" + id, null) > 0;
 
     }
 
 
-    public Penalties consultarPorId(int id) throws SQLException {
+    public Penalties fetchPenaltyPerId(int id) throws SQLException {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        Cursor c = db.query(DBContract.TabelaPenalidade.NOME_TABLE, DBContract.TabelaPenalidade.PENALIDADE_COLS, DBContract.TabelaPenalidade.PENALIDADE_ID + "=" + id, null, null, null, null, null);
+        Cursor c = db.query(DBContract.PenaltyTable.NOME_TABLE, DBContract.PenaltyTable.PENALTY_COLS, DBContract.PenaltyTable.PENALTY_ID + "=" + id, null, null, null, null, null);
 
         if (c != null) {
             c.moveToFirst();
@@ -84,7 +84,7 @@ public class PenaltiesDAO {
             return null;
         Penalties pen;
         do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaPenalidade.PENALIDADE_ID));
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.PenaltyTable.PENALTY_ID));
             String desc = c.getString(1);
             int point = c.getInt(2);
             pen = new Penalties(idd, desc, point);
@@ -94,16 +94,16 @@ public class PenaltiesDAO {
         return pen;
     }
 
-    public boolean deletarId(long rowId) {
+    public boolean deletePenaltyId(long rowId) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(DBContract.TabelaPenalidade.NOME_TABLE, DBContract.TabelaPenalidade.PENALIDADE_ID + "=" + rowId, null) > 0;
+        return db.delete(DBContract.PenaltyTable.NOME_TABLE, DBContract.PenaltyTable.PENALTY_ID + "=" + rowId, null) > 0;
     }
 
-    public boolean obterCadastroPenalidade(){
+    public boolean obtainPenalty(){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaPenalidade.NOME_TABLE, DBContract.TabelaPenalidade.PENALIDADE_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.PenaltyTable.NOME_TABLE, DBContract.PenaltyTable.PENALTY_COLS, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0){
             return true;

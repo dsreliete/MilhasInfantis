@@ -25,23 +25,23 @@ public class ChildrenDAO {
         this.context = context;
     }
 
-    public boolean inserir(Children children){
+    public boolean insertChild(Children children){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaFilho.FILHO_NOME, children.getName());
-        values.put(DBContract.TabelaFilho.FILHO_DT_NASC, children.getDataNasc());
-        values.put(DBContract.TabelaFilho.FILHO_SEXO, children.getGender());
-        db.insert(DBContract.TabelaFilho.NOME_TABLE, null, values);
+        values.put(DBContract.ChildTable.CHILD_NAME, children.getName());
+        values.put(DBContract.ChildTable.CHILD_BIRTH, children.getBirthDate());
+        values.put(DBContract.ChildTable.CHILD_GENDER, children.getGender());
+        db.insert(DBContract.ChildTable.NAME_TABLE, null, values);
         db.close();
         return true;
     }
 
-    public List<Children> consultarChildrenList(){
+    public List<Children> fetchChildrenList(){
         List<Children> lista = new ArrayList<>();
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaFilho.NOME_TABLE, DBContract.TabelaFilho.FILHO_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.ChildTable.NAME_TABLE, DBContract.ChildTable.CHILD_COLS, null, null, null, null, null);
 
         if(c != null)
             c.moveToFirst();
@@ -50,12 +50,12 @@ public class ChildrenDAO {
             return lista;
 
         do{
-            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaFilho.FILHO_ID));
-            String nome = c.getString(1);
-            String d = c.getString(2);
-            String dataNasc = Utils.formatDate(d);
+            int id = c.getInt(c.getColumnIndexOrThrow(DBContract.ChildTable.CHILD_ID));
+            String name = c.getString(1);
+            String date = c.getString(2);
+            String birthDate = Utils.formatDate(date);
             String gender = c.getString(3);
-            Children child = new Children(id, nome, dataNasc, gender);
+            Children child = new Children(id, name, birthDate, gender);
             lista.add(child);
         }while (c.moveToNext());
         c.close();
@@ -63,23 +63,23 @@ public class ChildrenDAO {
         return lista;
     }
 
-    public boolean atualizar(int id, String nome, String dataNasc, String gender){
+    public boolean updateChildren(int id, String name, String birthDate, String gender){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBContract.TabelaFilho.FILHO_NOME, nome);
-        values.put(DBContract.TabelaFilho.FILHO_DT_NASC, dataNasc);
-        values.put(DBContract.TabelaFilho.FILHO_SEXO, gender);
-        return db.update(DBContract.TabelaFilho.NOME_TABLE, values, DBContract.TabelaFilho.FILHO_ID + "=" + id, null) > 0;
+        values.put(DBContract.ChildTable.CHILD_NAME, name);
+        values.put(DBContract.ChildTable.CHILD_BIRTH, birthDate);
+        values.put(DBContract.ChildTable.CHILD_GENDER, gender);
+        return db.update(DBContract.ChildTable.NAME_TABLE, values, DBContract.ChildTable.CHILD_ID + "=" + id, null) > 0;
 
     }
 
 
-    public Children consultarPorId(int id) throws SQLException {
+    public Children fetchChildrenPerId(int id) throws SQLException {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        Cursor c = db.query(DBContract.TabelaFilho.NOME_TABLE, DBContract.TabelaFilho.FILHO_COLS, DBContract.TabelaFilho.FILHO_ID + "=" + id, null, null, null, null, null);
+        Cursor c = db.query(DBContract.ChildTable.NAME_TABLE, DBContract.ChildTable.CHILD_COLS, DBContract.ChildTable.CHILD_ID + "=" + id, null, null, null, null, null);
 
         if (c != null) {
             c.moveToFirst();
@@ -88,27 +88,27 @@ public class ChildrenDAO {
             return null;
         Children child;
         do{
-            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.TabelaFilho.FILHO_ID));
-            String nome = c.getString(1);
-            String dataNasc = c.getString(2);
+            int idd = c.getInt(c.getColumnIndexOrThrow(DBContract.ChildTable.CHILD_ID));
+            String name = c.getString(1);
+            String date = c.getString(2);
             String gender = c.getString(3);
-            child = new Children(idd, nome, dataNasc, gender);
+            child = new Children(idd, name, date, gender);
         }while (c.moveToNext());
         c.close();
         db.close();
         return child;
     }
 
-    public boolean deletarId(long rowId) {
+    public boolean deleteChildrenId(long rowId) {
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(DBContract.TabelaFilho.NOME_TABLE, DBContract.TabelaFilho.FILHO_ID + "=" + rowId, null) > 0;
+        return db.delete(DBContract.ChildTable.NAME_TABLE, DBContract.ChildTable.CHILD_ID + "=" + rowId, null) > 0;
     }
 
-    public boolean obterCadastroFilho(){
+    public boolean obtainChildren(){
         DBHelper helper = DBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.query(DBContract.TabelaFilho.NOME_TABLE, DBContract.TabelaFilho.FILHO_COLS, null, null, null, null, null);
+        Cursor c = db.query(DBContract.ChildTable.NAME_TABLE, DBContract.ChildTable.CHILD_COLS, null, null, null, null, null);
 
         if (c != null)
             c.moveToFirst();

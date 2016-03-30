@@ -45,7 +45,7 @@ public class ChildrenListAdapter extends RecyclerView.Adapter<ChildrenListAdapte
 
         if(children != null) {
             holder.nameChildTextView.setText(children.getName());
-            holder.pointsChildTextView.setText(children.getDataNasc());
+            holder.pointsChildTextView.setText(children.getBirthDate());
             if (children.getGender().equals("F")) {
                 holder.childImageView.setImageResource(R.drawable.maria);
             } else if (children.getGender().equals("M")) {

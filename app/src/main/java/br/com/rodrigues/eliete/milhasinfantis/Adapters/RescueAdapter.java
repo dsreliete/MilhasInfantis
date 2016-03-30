@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.rodrigues.eliete.milhasinfantis.R;
+import br.com.rodrigues.eliete.milhasinfantis.ChildrenRescuePointsActivity;
 import br.com.rodrigues.eliete.milhasinfantis.Dao.RealizationDAO;
-import br.com.rodrigues.eliete.milhasinfantis.Fragments.ChildrenRescuePointsFragment;
 import br.com.rodrigues.eliete.milhasinfantis.Model.Awards;
+import br.com.rodrigues.eliete.milhasinfantis.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -23,12 +23,12 @@ import butterknife.ButterKnife;
 public class RescueAdapter extends RecyclerView.Adapter<RescueAdapter.RescueItemViewHolder> {
 
     private List<Awards> awardsList;
-    private ChildrenRescuePointsFragment.OnItemClickListener.OnItemClickCallback onItemClickCallback;
+    private ChildrenRescuePointsActivity.OnItemClickListener.OnItemClickCallback onItemClickCallback;
     private Context context;
     private int idChildren;
     private boolean rescue;
 
-    public RescueAdapter(Context c, List<Awards> list, ChildrenRescuePointsFragment.OnItemClickListener.OnItemClickCallback onItemClickCallback, int id){
+    public RescueAdapter(Context c, List<Awards> list, ChildrenRescuePointsActivity.OnItemClickListener.OnItemClickCallback onItemClickCallback, int id){
         this.context = c;
         this.awardsList = list;
         this.onItemClickCallback = onItemClickCallback;
@@ -54,7 +54,7 @@ public class RescueAdapter extends RecyclerView.Adapter<RescueAdapter.RescueItem
             holder.descriptionAwards.setText(awards.getDescription());
             if (rescue){
                 holder.pointsAwards.setText(pointsCalculated + " pontos");
-                holder.rescueButton.setOnClickListener(new ChildrenRescuePointsFragment.OnItemClickListener(position, onItemClickCallback, childrenPoint, awards.getPoints(), awards.getId()));
+                holder.rescueButton.setOnClickListener(new ChildrenRescuePointsActivity.OnItemClickListener(position, onItemClickCallback, childrenPoint, awards.getPoints(), awards.getId()));
             }else{
                 if(pointsCalculated == 1){
                     holder.pointsAwards.setText("falta " + pointsCalculated + " ponto para resgate");
@@ -84,7 +84,7 @@ public class RescueAdapter extends RecyclerView.Adapter<RescueAdapter.RescueItem
 
     public int getChildrenTotalPoints(){
         RealizationDAO realizationDAO = new RealizationDAO(context);
-        return realizationDAO.consultarTotalPointsPerChild(idChildren);
+        return realizationDAO.fetchTotalPointsPerChild(idChildren);
     }
 
 
