@@ -1,5 +1,6 @@
 package br.com.rodrigues.eliete.milhasinfantis.Fragments;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -88,6 +89,7 @@ public class ChildrenGraphFragmentGoal extends Fragment implements DatePickerDia
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_children_graph_goal, container, false);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         ButterKnife.bind(this, rootView);
         setHasOptionsMenu(false);

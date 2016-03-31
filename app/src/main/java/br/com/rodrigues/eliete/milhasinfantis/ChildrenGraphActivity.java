@@ -15,22 +15,11 @@ import br.com.rodrigues.eliete.milhasinfantis.Fragments.ChildrenGraphFragmentBon
 import br.com.rodrigues.eliete.milhasinfantis.Fragments.ChildrenGraphFragmentGoal;
 import br.com.rodrigues.eliete.milhasinfantis.Fragments.ChildrenGraphFragmentTotal;
 import br.com.rodrigues.eliete.milhasinfantis.Widget.CircleImageView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by eliete on 3/30/16.
  */
 public class ChildrenGraphActivity extends AppCompatActivity {
-
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
-    @Bind(R.id.total_image)
-    CircleImageView totalImage;
-    @Bind(R.id.bon_pen_image)
-    CircleImageView bonPenImage;
-    @Bind(R.id.goal_image)
-    CircleImageView goalImage;
 
     private int idChild;
     private String nameChild;
@@ -39,8 +28,6 @@ public class ChildrenGraphActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-        
-        ButterKnife.bind(this);
 
         if (savedInstanceState != null){
             idChild = savedInstanceState.getInt(ChildrenDetailActivity.ID);
@@ -52,11 +39,13 @@ public class ChildrenGraphActivity extends AppCompatActivity {
             }
         }
 
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Gráficos");
 
 
+        CircleImageView totalImage = (CircleImageView) findViewById(R.id.total_image);
         totalImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -65,6 +54,7 @@ public class ChildrenGraphActivity extends AppCompatActivity {
             }
         });
 
+        CircleImageView bonPenImage = (CircleImageView) findViewById(R.id.bon_pen_image);
         bonPenImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -73,6 +63,7 @@ public class ChildrenGraphActivity extends AppCompatActivity {
             }
         });
 
+        CircleImageView goalImage = (CircleImageView) findViewById(R.id.goal_image);
         goalImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -87,7 +78,7 @@ public class ChildrenGraphActivity extends AppCompatActivity {
     public void initFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+                .add(R.id.container, fragment)
                 .addToBackStack("back")
                 .commit();
     }
