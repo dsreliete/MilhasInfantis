@@ -54,12 +54,11 @@ public class GoalsAssociationListAdapter extends RecyclerView.Adapter<GoalsAssoc
             holder.redPoint.setText(goals.getRedPoint() + " " + context.getResources().getString(R.string.points));
             if (consultAssociation(goals)){
                 holder.checkBox.setChecked(true);
-                holder.checkBox.setOnCheckedChangeListener(new AssociationActivity.OnItemClickListener(position, onItemClickCallback, true));
             }
             else {
                 holder.checkBox.setChecked(false);
-                holder.checkBox.setOnCheckedChangeListener(new AssociationActivity.OnItemClickListener(position, onItemClickCallback, false));
             }
+            holder.checkBox.setOnCheckedChangeListener(new AssociationActivity.OnItemClickListener(position, onItemClickCallback));
         }
 
     }

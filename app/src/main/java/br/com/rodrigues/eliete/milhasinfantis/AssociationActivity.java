@@ -132,12 +132,10 @@ public class AssociationActivity extends AppCompatActivity implements AdapterVie
     public static class OnItemClickListener implements CompoundButton.OnCheckedChangeListener {
         private int position;
         private OnItemClickCallback onItemClickCallback;
-        private boolean isChecked;
 
-        public OnItemClickListener(int position, OnItemClickCallback onItemClickCallback, boolean isChecked) {
+        public OnItemClickListener(int position, OnItemClickCallback onItemClickCallback) {
             this.position = position;
             this.onItemClickCallback = onItemClickCallback;
-            this.isChecked = isChecked;
         }
 
         @Override
